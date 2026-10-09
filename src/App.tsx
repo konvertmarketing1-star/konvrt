@@ -1,0 +1,458 @@
+import { useEffect, useRef, useState } from "react";
+import { InquiryDialog } from "./InquiryDialog";
+import { Cursor } from "./icons";
+import { inquiryEmail } from "./config";
+import {
+  addons,
+  comparison,
+  customOffer,
+  customSeeds,
+  faqs,
+  fit,
+  guarantee,
+  mediaNote,
+  priceHeadline,
+  steps,
+  websites,
+  type PackageId,
+} from "./data";
+
+const care = addons.find((offer) => offer.id === "care")!;
+const creativeOffers = addons.filter((offer) => offer.id !== "care");
+
+export function App() {
+  const [scrolled, setScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [showSticky, setShowSticky] = useState(false);
+  const heroActions = useRef<HTMLDivElement>(null);
+  const [inquiry, setInquiry] = useState<{
+    open: boolean;
+    packageId: PackageId;
+    note: string;
+    requestKey: number;
+  }>({ open: false, packageId: "custom", note: "", requestKey: 0 });
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 8);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  useEffect(() => {
+    const node = heroActions.current;
+    if (!node) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => setShowSticky(!entry.isIntersecting),
+      { threshold: 0.2 },
+    );
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, []);
+
+  function openInquiry(packageId: PackageId, note = "") {
+    setMenuOpen(false);
+    setInquiry((current) => ({
+      open: true,
+      packageId,
+      note,
+      requestKey: current.requestKey + 1,
+    }));
+  }
+
+  function closeInquiry() {
+    setInquiry((current) => ({ ...current, open: false }));
+  }
+
+  function goToOffer(id: PackageId) {
+    document.getElementById(`offer-${id}`)?.scrollIntoView({ behavior: "smooth", block: "center" });
+  }
+
+  return (
+    <>
+      <a className="skip" href="#offers">
+        Skip to offers
+      </a>
+      <header className={scrolled ? "site-header is-stuck" : "site-header"}>
+        <div className="wrap header-bar">
+          <a className="brand" href="#top">
+            <img src="/wordmark.png" width={1034} height={181} alt="KONVRT" />
+          </a>
+          <nav className="nav-links" aria-label="Primary">
+            <a href="#offers">Websites</a>
+            <a href="#creative">Creative</a>
+            <a href="#questions">Questions</a>
+          </nav>
+          <div className="header-actions">
+            <button type="button" className="btn btn-primary" onClick={() => openInquiry("custom")}>
+              Custom creative
+            </button>
+            <button
+              type="button"
+              className="menu-btn"
+              aria-expanded={menuOpen}
+              aria-controls="mobile-nav"
+              onClick={() => setMenuOpen((open) => !open)}
+            >
+              {menuOpen ? "Close" : "Menu"}
+            </button>
+          </div>
+        </div>
+        {menuOpen && (
+          <div id="mobile-nav" className="mobile-panel">
+            <a href="#offers" onClick={() => setMenuOpen(false)}>
+              Websites
+            </a>
+            <a href="#creative" onClick={() => setMenuOpen(false)}>
+              Creative
+            </a>
+            <a href="#questions" onClick={() => setMenuOpen(false)}>
+              Questions
+            </a>
+            <button type="button" onClick={() => openInquiry("custom")}>
+              Inquire about custom creative
+            </button>
+          </div>
+        )}
+      </header>
+
+      <main id="top">
+        <section className="hero">
+          <div className="wrap hero-grid">
+            <div>
+              <p className="kicker">
+                <Cursor className="kicker-cursor" />
+                Websites that get leads
+              </p>
+              <h1>
+                From the click
+                <span> to the customer.</span>
+              </h1>
+              <p className="lede">
+                KONVRT builds websites that get leads. Refresh the site you have, or rebuild it.
+                An AI front desk answers leads, books estimates, and follows up. Creative is an
+                add-on: we plan the month, and you post it.
+              </p>
+              <div className="hero-actions" ref={heroActions}>
+                <a className="btn btn-primary" href="#offers">
+                  See the websites
+                </a>
+                <button type="button" className="btn btn-ghost" onClick={() => openInquiry("custom")}>
+                  Inquire about custom creative
+                </button>
+              </div>
+            </div>
+            <div className="hero-art">
+              <img src="/mark.png" width={599} height={651} alt="" />
+            </div>
+          </div>
+          <div className="wrap">
+            <div className="price-strip" aria-label="Website prices">
+              {[...websites, customOffer].map((offer) => (
+                <button
+                  key={offer.id}
+                  type="button"
+                  className={offer.core ? "is-core" : undefined}
+                  onClick={() => goToOffer(offer.id)}
+                >
+                  <span>{offer.short}</span>
+                  <strong>{priceHeadline(offer)}</strong>
+                  <small>{offer.priceNote}</small>
+                </button>
+              ))}
+            </div>
+            <ul className="facts">
+              <li>Quote form and click-to-call</li>
+              <li>Care plan, $150 a month, optional</li>
+              <li>You keep your social logins</li>
+            </ul>
+          </div>
+        </section>
+
+        <section className="section" id="offers">
+          <div className="wrap">
+            <div className="section-head">
+              <p className="kicker">Websites</p>
+              <h2>Built once. Then you own it.</h2>
+              <p className="lede">
+                Refresh the site you already have, or start over with a site built to get leads.
+                The front desk is that rebuild, plus a bot that works the leads after they come in.
+              </p>
+            </div>
+            <div className="offer-grid">
+              {websites.map((offer) => (
+                <article
+                  key={offer.id}
+                  id={`offer-${offer.id}`}
+                  className={offer.core ? "offer is-core" : "offer"}
+                >
+                  {offer.core && <p className="badge">Full site</p>}
+                  <h3>{offer.name}</h3>
+                  <p className="price">
+                    <strong>{priceHeadline(offer)}</strong>
+                    <span>{offer.priceNote}</span>
+                  </p>
+                  <p className="summary">{offer.summary}</p>
+                  <p className="best">
+                    <span>Best for</span>
+                    {offer.bestFor}
+                  </p>
+                  <ul>
+                    {offer.items.map((item) => (
+                      <li key={item}>{item}</li>
+                    ))}
+                  </ul>
+                  <button
+                    type="button"
+                    className={offer.core ? "btn btn-primary" : "btn btn-ghost"}
+                    onClick={() => openInquiry(offer.id)}
+                  >
+                    {offer.cta}
+                  </button>
+                </article>
+              ))}
+            </div>
+
+            <aside className="care-bar" id="offer-care">
+              <div>
+                <p className="kicker">Optional, after launch</p>
+                <h3>{care.name}</h3>
+                <p>{care.summary}</p>
+              </div>
+              <p className="price">
+                <strong>{priceHeadline(care)}</strong>
+                <span>per month</span>
+              </p>
+              <button type="button" className="btn btn-ghost" onClick={() => openInquiry("care")}>
+                {care.cta}
+              </button>
+            </aside>
+
+            <div className="promise">
+              <p>{guarantee}</p>
+            </div>
+          </div>
+        </section>
+
+        <section className="section" id="creative">
+          <div className="wrap">
+            <div className="section-head">
+              <p className="kicker">Creative</p>
+              <h2>We plan it. You post it.</h2>
+              <p className="lede">
+                Hooks, captions, a calendar, and shot notes for the month. A half-day shoot if you
+                want the footage. Custom creative if the work needs its own scope.
+              </p>
+            </div>
+            <div className="offer-grid two">
+              {creativeOffers.map((offer) => (
+                <article key={offer.id} id={`offer-${offer.id}`} className="offer">
+                  <h3>{offer.name}</h3>
+                  <p className="price">
+                    <strong>{priceHeadline(offer)}</strong>
+                    <span>{offer.priceNote}</span>
+                  </p>
+                  <p className="summary">{offer.summary}</p>
+                  <p className="best">
+                    <span>Best for</span>
+                    {offer.bestFor}
+                  </p>
+                  <ul>
+                    {offer.items.map((item) => (
+                      <li key={item}>{item}</li>
+                    ))}
+                  </ul>
+                  <button type="button" className="btn btn-ghost" onClick={() => openInquiry(offer.id)}>
+                    {offer.cta}
+                  </button>
+                </article>
+              ))}
+            </div>
+
+            <aside className="custom-band" id="offer-custom">
+              <div>
+                <p className="kicker">
+                  <Cursor className="kicker-cursor" />
+                  Custom creative
+                </p>
+                <h3>If the creative needs its own shape, describe it.</h3>
+                <p>
+                  {customOffer.summary} You send the outcome, a budget range, and the timing. We
+                  reply within one business day with a scope and a price, or we point you to the
+                  add-on that already fits.
+                </p>
+                <p className="best">
+                  <span>Best for</span>
+                  {customOffer.bestFor}
+                </p>
+              </div>
+              <div className="custom-actions">
+                <div className="seed-row">
+                  {customSeeds.map((seed) => (
+                    <button key={seed.label} type="button" onClick={() => openInquiry("custom", seed.note)}>
+                      {seed.label}
+                    </button>
+                  ))}
+                </div>
+                <button type="button" className="btn btn-primary" onClick={() => openInquiry("custom")}>
+                  Inquire about custom creative
+                </button>
+              </div>
+            </aside>
+
+            <div className="promise">
+              <p>{mediaNote}</p>
+            </div>
+          </div>
+        </section>
+
+        <section className="section" id="compare">
+          <div className="wrap">
+            <div className="section-head">
+              <p className="kicker">Side by side</p>
+              <h2>Compare the websites.</h2>
+            </div>
+            <div className="table-wrap">
+              <table>
+                <caption className="sr-only">Website comparison</caption>
+                <thead>
+                  <tr>
+                    <th scope="col">Included</th>
+                    {websites.map((offer) => (
+                      <th key={offer.id} scope="col" className={offer.core ? "is-core" : undefined}>
+                        {offer.short}
+                      </th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {comparison.map((row) => (
+                    <tr key={row.label}>
+                      <th scope="row">{row.label}</th>
+                      {websites.map((offer) => (
+                        <td key={offer.id} className={offer.core ? "is-core" : undefined}>
+                          {row.cells[offer.id]}
+                        </td>
+                      ))}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <section className="section" id="process">
+          <div className="wrap">
+            <div className="section-head">
+              <p className="kicker">How it works</p>
+              <h2>From inquiry to a site you can run.</h2>
+            </div>
+            <ol className="steps">
+              {steps.map((step) => (
+                <li key={step.n}>
+                  <span>{step.n}</span>
+                  <h3>{step.title}</h3>
+                  <p>{step.body}</p>
+                </li>
+              ))}
+            </ol>
+          </div>
+        </section>
+
+        <section className="section" id="fit">
+          <div className="wrap">
+            <div className="section-head">
+              <p className="kicker">Fit</p>
+              <h2>Who this is for.</h2>
+            </div>
+            <div className="fit-grid">
+              <article>
+                <h3>A good fit</h3>
+                <ul>
+                  {fit.forYou.map((item) => (
+                    <li key={item}>{item}</li>
+                  ))}
+                </ul>
+              </article>
+              <article>
+                <h3>Outside this work</h3>
+                <ul>
+                  {fit.outside.map((item) => (
+                    <li key={item}>{item}</li>
+                  ))}
+                </ul>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <section className="section" id="questions">
+          <div className="wrap questions">
+            <div className="section-head">
+              <p className="kicker">Questions</p>
+              <h2>Before you inquire.</h2>
+            </div>
+            <div className="faq">
+              {faqs.map((item) => (
+                <details key={item.id} open={item.id === "custom"}>
+                  <summary>{item.q}</summary>
+                  <p>{item.a}</p>
+                </details>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="section close-section" id="inquire">
+          <div className="wrap close-panel">
+            <div>
+              <p className="kicker">
+                <Cursor className="kicker-cursor" />
+                Start here
+              </p>
+              <h2>Pick a website, or describe the creative.</h2>
+              <p className="lede">
+                Refresh, Rebuild, and the front desk have a price on this page. Custom creative is
+                scoped after you tell us the outcome.
+              </p>
+            </div>
+            <div className="close-actions">
+              <a className="btn btn-primary" href="#offers">
+                See the websites
+              </a>
+              <button type="button" className="btn btn-ghost" onClick={() => openInquiry("custom")}>
+                Custom creative
+              </button>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer className="site-footer">
+        <div className="wrap footer-bar">
+          <a className="brand" href="#top">
+            <img src="/wordmark.png" width={1034} height={181} alt="KONVRT" />
+          </a>
+          <p>Websites built once, with the price on the page. Custom creative when the work needs its own scope.</p>
+          <a href={`mailto:${inquiryEmail}`}>{inquiryEmail}</a>
+        </div>
+      </footer>
+
+      <div className={showSticky ? "sticky-cta is-on" : "sticky-cta"}>
+        <a href="#offers">See websites</a>
+        <button type="button" onClick={() => openInquiry("custom")}>
+          Custom creative
+        </button>
+      </div>
+
+      <InquiryDialog
+        open={inquiry.open}
+        packageId={inquiry.packageId}
+        note={inquiry.note}
+        requestKey={inquiry.requestKey}
+        onClose={closeInquiry}
+      />
+    </>
+  );
+}
