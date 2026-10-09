@@ -169,6 +169,150 @@ export function App() {
           </div>
         </section>
 
+        <section className="section" id="examples">
+          <div className="wrap">
+            <div className="section-head">
+              <p className="kicker">Examples</p>
+              <h2>The page asks for the next step.</h2>
+              <p className="lede">
+                Sample pages, plus the texts and reviews those pages are built to collect. One
+                offer, a way to call, and a form that asks for the quote.
+              </p>
+            </div>
+            <div className="proof-grid">
+              <figure className="shot">
+                <div className="browser">
+                  <div className="browser-bar" aria-hidden="true">
+                    <span />
+                    <span />
+                    <span />
+                    <em>northline.example</em>
+                  </div>
+                  <div className="mini mini-roof">
+                    <img src="/examples/roof.jpg" alt="" />
+                    <p className="mini-brand">Northline Roofing</p>
+                    <h3>Same-week roof repair.</h3>
+                    <p>Tell us what is leaking. We call back with a time.</p>
+                    <div className="mini-actions">
+                      <b>Call now</b>
+                      <b className="is-quiet">Request a quote</b>
+                    </div>
+                  </div>
+                </div>
+                <figcaption>
+                  <span>Example</span>
+                  The first screen
+                </figcaption>
+              </figure>
+
+              <figure className="shot">
+                <div className="browser">
+                  <div className="browser-bar" aria-hidden="true">
+                    <span />
+                    <span />
+                    <span />
+                    <em>harbor.example</em>
+                  </div>
+                  <div className="mini mini-form">
+                    <img src="/examples/kitchen.jpg" alt="" />
+                    <p className="mini-brand">Harbor Home</p>
+                    <h3>Request a quote</h3>
+                    <label>
+                      What do you need?
+                      <i>Kitchen repaint, two rooms</i>
+                    </label>
+                    <label>
+                      Phone
+                      <i>(555) 014-2200</i>
+                    </label>
+                    <b>Send the request</b>
+                  </div>
+                </div>
+                <figcaption>
+                  <span>Example</span>
+                  The quote form
+                </figcaption>
+              </figure>
+
+              <figure className="shot">
+                <div className="phone">
+                  <div className="phone-notch" aria-hidden="true" />
+                  <div className="mini mini-phone">
+                    <p className="mini-brand">Lark Plumbing</p>
+                    <h3>A plumber who picks up.</h3>
+                    <p>Burst pipe, clog, or water heater. Call or send the job.</p>
+                    <b>Tap to call</b>
+                    <div className="mini-note">
+                      <img src="/examples/heater.jpg" alt="" />
+                      <strong>New lead</strong>
+                      <span>Water heater, tomorrow morning</span>
+                    </div>
+                  </div>
+                </div>
+                <figcaption>
+                  <span>Example</span>
+                  The call, on a phone
+                </figcaption>
+              </figure>
+            </div>
+
+            <div className="ugc-block">
+              <h3>What comes back.</h3>
+              <div className="proof-grid">
+                <figure className="shot">
+                  <div className="textshot">
+                    <header>
+                      <strong>Northline Roofing</strong>
+                      <span>Today, 7:14 AM</span>
+                    </header>
+                    <div className="bubble in">
+                      Ceiling is dripping in the living room. Can someone come this week?
+                      <img src="/examples/leak.jpg" alt="" />
+                    </div>
+                    <div className="bubble out">Thursday morning works. I sent the quote.</div>
+                  </div>
+                  <figcaption>
+                    <span>Example</span>
+                    A text with a photo
+                  </figcaption>
+                </figure>
+
+                <figure className="shot">
+                  <div className="reviewshot">
+                    <p className="stars" aria-label="5 stars">
+                      ★★★★★
+                    </p>
+                    <p>They masked the cabinets and finished both rooms. The kitchen looks new.</p>
+                    <footer>Sample review on Harbor Home</footer>
+                  </div>
+                  <figcaption>
+                    <span>Example</span>
+                    A review on the page
+                  </figcaption>
+                </figure>
+
+                <figure className="shot">
+                  <div className="textshot">
+                    <header>
+                      <strong>New request</strong>
+                      <span>Harbor Home</span>
+                    </header>
+                    <div className="bubble in">
+                      Kitchen repaint, two rooms. Ready to start next week.
+                      <img src="/examples/kitchen.jpg" alt="" />
+                    </div>
+                    <div className="bubble out">Got it. Calling you this afternoon.</div>
+                  </div>
+                  <figcaption>
+                    <span>Example</span>
+                    The form, in the inbox
+                  </figcaption>
+                </figure>
+              </div>
+            </div>
+          </div>
+        </section>
+
         <section className="section" id="offers">
           <div className="wrap">
             <div className="section-head">
