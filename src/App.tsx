@@ -574,6 +574,27 @@ export function App() {
             </div>
           </div>
         </section>
+
+        <section className="section" id="founders">
+          <div className="wrap">
+            <div className="section-head">
+              <p className="kicker">Founders</p>
+              <h2>Emmerson and Seven.</h2>
+            </div>
+            <div className="founder-grid">
+              <article>
+                <img src="/founders/emmerson.jpg" width={1570} height={884} alt="Emmerson, co-founder and CMO" />
+                <h3>Emmerson</h3>
+                <p>Co-founder + CMO</p>
+              </article>
+              <article>
+                <img src="/founders/seven.jpg" width={1570} height={882} alt="Seven, co-founder and CEO" />
+                <h3>Seven</h3>
+                <p>Co-founder + CEO</p>
+              </article>
+            </div>
+          </div>
+        </section>
       </main>
 
       <footer className="site-footer">
