@@ -463,6 +463,13 @@ h1, h2, h3 {
   color: #f6f1e8;
 }
 
+.mini-shop {
+  background: #f7f4ef;
+  color: #1c1915;
+}
+
+.mini-shop b { background: #1c1915; color: #fff; }
+
 .mini-roof b { background: #e7a04a; color: #1c1915; }
 
 .mini-roof b.is-quiet { background: transparent; color: #f6f1e8; }

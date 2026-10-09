@@ -43,12 +43,12 @@ export const websites: Array<Offer & { id: WebsiteId }> = [
     priceNote: "one time",
     cadence: "once",
     summary: "A new design and clearer copy on the site you already have.",
-    bestFor: "The site is up, and it needs to start getting quotes and calls.",
+    bestFor: "The site is up. It needs more sales, more leads, or more calls.",
     items: [
       "New design on your current site",
-      "Better copy",
-      "A quote form",
-      "Click-to-call",
+      "Copy aimed at the sale, the lead, or the call",
+      "A path to buy, book, or request a quote",
+      "Click-to-call when a call is the next step",
       "Mobile and desktop",
       "Built once. You own it.",
     ],
@@ -61,13 +61,13 @@ export const websites: Array<Offer & { id: WebsiteId }> = [
     price: 3000,
     priceNote: "one time",
     cadence: "once",
-    summary: "A full new site, built to get leads.",
-    bestFor: "You want a new site, up to 6 pages, with a way to request a quote.",
+    summary: "A full new site, built to convert.",
+    bestFor: "A shop that should sell more, or a firm that should bring in more leads.",
     items: [
       "A full new site, up to 6 pages",
-      "Written and designed to get leads",
-      "A quote form",
-      "Click-to-call",
+      "A shop, a law firm, an insurance agency, or a local business",
+      "A way to buy, book a consult, or request a quote",
+      "Click-to-call when a call is the next step",
       "Mobile and desktop",
       "Built once. You own it.",
     ],
@@ -82,12 +82,12 @@ export const websites: Array<Offer & { id: WebsiteId }> = [
     priceNote: "plus $297/month",
     cadence: "once",
     monthly: 297,
-    summary: "The new site, plus a bot that works the leads after they come in.",
-    bestFor: "You want the site, and you want leads answered, booked, and followed up.",
+    summary: "The new site, plus a bot that answers and follows up.",
+    bestFor: "You want questions answered and the next step booked while you are with a client.",
     items: [
       "Everything in Rebuild",
-      "A bot that answers new leads",
-      "Books estimates",
+      "A bot that answers shoppers and new leads",
+      "Books a consult, an estimate, or a callback",
       "Follows up",
       "$297/month for the front desk",
       "The site build is paid once",
@@ -105,7 +105,7 @@ export const addons: Offer[] = [
     priceNote: "per month, optional",
     cadence: "month",
     summary: "Updates, fixes, and hosting help after the site launches.",
-    bestFor: "You want someone on call after the build, without a new project every time.",
+    bestFor: "You want someone available after the build, without a new project every time.",
     items: [
       "Updates after launch",
       "Fixes",
@@ -123,7 +123,7 @@ export const addons: Offer[] = [
     priceNote: "per month",
     cadence: "month",
     summary: "A month of hooks, captions, a calendar, and shot notes. You post it.",
-    bestFor: "You want the plan and the drafts, and you will post them yourself.",
+    bestFor: "A product, a practice, or a local business. You want the drafts, and you will post them.",
     items: [
       "Hooks for the month",
       "Captions",
@@ -204,13 +204,13 @@ export const comparison: ComparisonRow[] = [
   {
     label: "Design and copy",
     cells: {
-      refresh: "New design, better copy",
-      rebuild: "Written to get leads",
-      "front-desk": "Written to get leads",
+      refresh: "New design, clearer offer",
+      rebuild: "Written to convert",
+      "front-desk": "Written to convert",
     },
   },
   {
-    label: "Quote form",
+    label: "Path to buy, book, or inquire",
     cells: { refresh: "Yes", rebuild: "Yes", "front-desk": "Yes" },
   },
   {
@@ -218,7 +218,7 @@ export const comparison: ComparisonRow[] = [
     cells: { refresh: "Yes", rebuild: "Yes", "front-desk": "Yes" },
   },
   {
-    label: "Answers leads and books estimates",
+    label: "Answers and books the next step",
     cells: { refresh: "—", rebuild: "—", "front-desk": "Yes" },
   },
   {
@@ -255,7 +255,7 @@ export const steps = [
   {
     n: "01",
     title: "Tell us the business.",
-    body: "What you sell, who calls you, and which site you want. For custom creative, the inquiry is the brief.",
+    body: "What you sell, who the site is for, and which offer you want. A shop, a law firm, an insurance agency, or a local business. For custom creative, the inquiry is the brief.",
   },
   {
     n: "02",
@@ -265,19 +265,21 @@ export const steps = [
   {
     n: "03",
     title: "You launch.",
-    body: "The site goes up with a quote form and click-to-call. The care plan is there if you want updates after that. Creative, if you add it, is a plan you post yourself.",
+    body: "The site goes up with one next step: buy, book a consult, or call. The care plan is there if you want updates after that. Creative, if you add it, is a plan you post yourself.",
   },
 ];
 
 export const fit = {
   forYou: [
-    "You need the website to bring in quotes and calls",
-    "You want the site built once, then paid for",
+    "A Shopify or online brand that needs more sales",
+    "A lawyer or insurance agent who needs more leads",
+    "A local business that needs quotes and calls",
+    "You want the site built once, then you own it",
     "You want a content plan, and you will post it yourself",
   ],
   outside: [
     "Daily posting done for you, inside your social accounts",
-    "A site with no way to request a quote or call",
+    "Ads, fulfillment, or the client work itself",
     "Custom creative with nothing to describe",
   ],
 };
@@ -291,12 +293,17 @@ export const faqs = [
   {
     id: "sites",
     q: "What is the difference between Refresh and Rebuild?",
-    a: "Refresh is $1,500. It upgrades the site you have with a new design, better copy, a quote form, and click-to-call. Rebuild is $3,000. It is a full new site, up to 6 pages, built to get leads.",
+    a: "Refresh is $1,500. It upgrades the site you have with a new design, clearer copy, and a next step: buy, book, or call. Rebuild is $3,000. It is a full new site, up to 6 pages, for a shop, a law firm, an insurance agency, or a local business.",
+  },
+  {
+    id: "who",
+    q: "Do you work with Shopify brands, lawyers, and insurance agents?",
+    a: "Yes. Shopify and online brands get a site built to convert and sell. Lawyers and insurance agents get a site built to collect leads. Local businesses still get a quote form and click-to-call. The prices on this page are the same for each.",
   },
   {
     id: "desk",
     q: "What is the AI front desk, and what is the $297?",
-    a: "Rebuild + AI Front Desk is $3,500 for the site, then $297 a month. The bot answers leads, books estimates, and follows up. The $297 is for that front desk, not for the site itself.",
+    a: "Rebuild + AI Front Desk is $3,500 for the site, then $297 a month. The bot answers shoppers and new leads, books a consult, an estimate, or a callback, and follows up. It does not give legal advice or bind an insurance policy. The $297 is for that front desk, not for the site itself.",
   },
   {
     id: "care",

@@ -122,16 +122,17 @@ export function App() {
             <div>
               <p className="kicker">
                 <Cursor className="kicker-cursor" />
-                Websites that get leads
+                Websites that convert
               </p>
               <h1>
                 From the click
                 <span> to the customer.</span>
               </h1>
               <p className="lede">
-                KONVRT builds websites that get leads. Refresh the site you have, or rebuild it.
-                An AI front desk answers leads, books estimates, and follows up. Creative is an
-                add-on: we plan the month, and you post it.
+                KONVRT builds the page that gets the next step. Shopify and online brands get a
+                site that sells. Lawyers and insurance agents get more leads. Local businesses get
+                the quote and the call. Refresh the site you have, or rebuild it. An AI front desk
+                answers, books, and follows up.
               </p>
               <div className="hero-actions" ref={heroActions}>
                 <a className="btn btn-primary" href="#offers">
@@ -162,7 +163,7 @@ export function App() {
               ))}
             </div>
             <ul className="facts">
-              <li>Quote form and click-to-call</li>
+              <li>A path to buy, book, or call</li>
               <li>Care plan, $150 a month, optional</li>
               <li>You keep your social logins</li>
             </ul>
@@ -175,8 +176,8 @@ export function App() {
               <p className="kicker">Examples</p>
               <h2>The page asks for the next step.</h2>
               <p className="lede">
-                Sample pages, plus the texts and reviews those pages are built to collect. One
-                offer, a way to call, and a form that asks for the quote.
+                Sample pages. A product you can buy, a consult you can book, and a policy you can
+                ask about. Local businesses still get the quote and the call.
               </p>
             </div>
             <div className="proof-grid">
@@ -186,22 +187,21 @@ export function App() {
                     <span />
                     <span />
                     <span />
-                    <em>northline.example</em>
+                    <em>marlow.example</em>
                   </div>
-                  <div className="mini mini-roof">
-                    <img src="/examples/roof.jpg" alt="" />
-                    <p className="mini-brand">Northline Roofing</p>
-                    <h3>Same-week roof repair.</h3>
-                    <p>Tell us what is leaking. We call back with a time.</p>
+                  <div className="mini mini-shop">
+                    <img src="/examples/oil.jpg" alt="" />
+                    <p className="mini-brand">Marlow</p>
+                    <h3>Cedar hand oil.</h3>
+                    <p>$28. A short product page, then the cart.</p>
                     <div className="mini-actions">
-                      <b>Call now</b>
-                      <b className="is-quiet">Request a quote</b>
+                      <b>Add to cart</b>
                     </div>
                   </div>
                 </div>
                 <figcaption>
                   <span>Example</span>
-                  The first screen
+                  The product page
                 </figcaption>
               </figure>
 
@@ -211,15 +211,14 @@ export function App() {
                     <span />
                     <span />
                     <span />
-                    <em>harbor.example</em>
+                    <em>ames.example</em>
                   </div>
                   <div className="mini mini-form">
-                    <img src="/examples/kitchen.jpg" alt="" />
-                    <p className="mini-brand">Harbor Home</p>
-                    <h3>Request a quote</h3>
+                    <p className="mini-brand">Ames Law</p>
+                    <h3>Request a consult</h3>
                     <label>
-                      What do you need?
-                      <i>Kitchen repaint, two rooms</i>
+                      What happened?
+                      <i>Rear-ended yesterday</i>
                     </label>
                     <label>
                       Phone
@@ -230,7 +229,7 @@ export function App() {
                 </div>
                 <figcaption>
                   <span>Example</span>
-                  The quote form
+                  The consult form
                 </figcaption>
               </figure>
 
@@ -238,20 +237,19 @@ export function App() {
                 <div className="phone">
                   <div className="phone-notch" aria-hidden="true" />
                   <div className="mini mini-phone">
-                    <p className="mini-brand">Lark Plumbing</p>
-                    <h3>A plumber who picks up.</h3>
-                    <p>Burst pipe, clog, or water heater. Call or send the job.</p>
+                    <p className="mini-brand">Pell Insurance</p>
+                    <h3>Ask about a policy.</h3>
+                    <p>Home, auto, or a business policy. Call or send the details.</p>
                     <b>Tap to call</b>
                     <div className="mini-note">
-                      <img src="/examples/heater.jpg" alt="" />
                       <strong>New lead</strong>
-                      <span>Water heater, tomorrow morning</span>
+                      <span>Home policy, closing Friday</span>
                     </div>
                   </div>
                 </div>
                 <figcaption>
                   <span>Example</span>
-                  The call, on a phone
+                  An insurance lead
                 </figcaption>
               </figure>
             </div>
@@ -262,50 +260,53 @@ export function App() {
                 <figure className="shot">
                   <div className="textshot">
                     <header>
-                      <strong>Northline Roofing</strong>
+                      <strong>Marlow</strong>
                       <span>Today, 7:14 AM</span>
                     </header>
                     <div className="bubble in">
-                      Ceiling is dripping in the living room. Can someone come this week?
-                      <img src="/examples/leak.jpg" alt="" />
+                      Order placed. Cedar hand oil, two bottles.
+                      <img src="/examples/oil.jpg" alt="" />
                     </div>
-                    <div className="bubble out">Thursday morning works. I sent the quote.</div>
+                    <div className="bubble out">Packed today. It ships in the morning.</div>
                   </div>
                   <figcaption>
                     <span>Example</span>
-                    A text with a photo
-                  </figcaption>
-                </figure>
-
-                <figure className="shot">
-                  <div className="reviewshot">
-                    <p className="stars" aria-label="5 stars">
-                      ★★★★★
-                    </p>
-                    <p>They masked the cabinets and finished both rooms. The kitchen looks new.</p>
-                    <footer>Sample review on Harbor Home</footer>
-                  </div>
-                  <figcaption>
-                    <span>Example</span>
-                    A review on the page
+                    An order, with the photo
                   </figcaption>
                 </figure>
 
                 <figure className="shot">
                   <div className="textshot">
                     <header>
-                      <strong>New request</strong>
-                      <span>Harbor Home</span>
+                      <strong>Ames Law</strong>
+                      <span>Today, 9:40 AM</span>
                     </header>
                     <div className="bubble in">
-                      Kitchen repaint, two rooms. Ready to start next week.
-                      <img src="/examples/kitchen.jpg" alt="" />
+                      Rear-ended yesterday. Can I talk with someone this week?
                     </div>
-                    <div className="bubble out">Got it. Calling you this afternoon.</div>
+                    <div className="bubble out">Thursday at 10. I sent the consult form.</div>
                   </div>
                   <figcaption>
                     <span>Example</span>
-                    The form, in the inbox
+                    A lead for a lawyer
+                  </figcaption>
+                </figure>
+
+                <figure className="shot">
+                  <div className="textshot">
+                    <header>
+                      <strong>Northline Roofing</strong>
+                      <span>Today, 8:02 AM</span>
+                    </header>
+                    <div className="bubble in">
+                      Ceiling is dripping. Can someone come this week?
+                      <img src="/examples/leak.jpg" alt="" />
+                    </div>
+                    <div className="bubble out">Thursday morning works. I sent the quote.</div>
+                  </div>
+                  <figcaption>
+                    <span>Example</span>
+                    A local quote
                   </figcaption>
                 </figure>
               </div>
@@ -319,8 +320,9 @@ export function App() {
               <p className="kicker">Websites</p>
               <h2>Built once. Then you own it.</h2>
               <p className="lede">
-                Refresh the site you already have, or start over with a site built to get leads.
-                The front desk is that rebuild, plus a bot that works the leads after they come in.
+                Refresh the site you already have, or start over. Shops get a page that sells.
+                Lawyers and insurance agents get a page that collects leads. Local businesses get
+                the quote and the call. The front desk answers and follows up after that.
               </p>
             </div>
             <div className="offer-grid">
@@ -384,8 +386,9 @@ export function App() {
               <p className="kicker">Creative</p>
               <h2>We plan it. You post it.</h2>
               <p className="lede">
-                Hooks, captions, a calendar, and shot notes for the month. A half-day shoot if you
-                want the footage. Custom creative if the work needs its own scope.
+                Hooks, captions, a calendar, and shot notes for a product, a practice, or a local
+                business. A half-day shoot if you want the footage. Custom creative if the work
+                needs its own scope.
               </p>
             </div>
             <div className="offer-grid two">
@@ -557,7 +560,7 @@ export function App() {
               </p>
               <h2>Pick a website, or describe the creative.</h2>
               <p className="lede">
-                Refresh, Rebuild, and the front desk have a price on this page. Custom creative is
+                The price is the same for a shop, a firm, or a local business. Custom creative is
                 scoped after you tell us the outcome.
               </p>
             </div>
@@ -578,7 +581,7 @@ export function App() {
           <a className="brand" href="#top">
             <img src="/wordmark.png" width={1034} height={181} alt="KONVRT" />
           </a>
-          <p>Websites built once, with the price on the page. Custom creative when the work needs its own scope.</p>
+          <p>Websites for shops, firms, and local businesses. Built once, with the price on the page.</p>
           <a href={`mailto:${inquiryEmail}`}>{inquiryEmail}</a>
         </div>
       </footer>

@@ -64,7 +64,7 @@ function validate(values: FormValues) {
   if (values.website.trim() && !values.website.trim().includes(".")) {
     errors.website = "Add a full website, or leave this blank.";
   }
-  if (!values.sells.trim()) errors.sells = "Tell us what you sell.";
+  if (!values.sells.trim()) errors.sells = "Tell us what you sell or offer.";
   if (values.selected.length === 0) errors.selected = "Choose at least one option.";
   if (values.selected.includes("custom")) {
     if (!values.outcome.trim()) errors.outcome = "Tell us the outcome you want.";
@@ -109,7 +109,7 @@ function inquiryText(payload: InquiryPayload) {
     payload.phone ? `Phone: ${payload.phone}` : "",
     `Business: ${payload.business}`,
     payload.website ? `Website: ${payload.website}` : "",
-    `What they sell: ${payload.sells}`,
+    `What they offer: ${payload.sells}`,
     payload.outcome ? `Outcome: ${payload.outcome}` : "",
     payload.budget ? `Budget: ${payload.budget}` : "",
     payload.timeline ? `Timeline: ${payload.timeline}` : "",
@@ -439,7 +439,7 @@ export function InquiryDialog({
               <Field
                 id="inq-sells"
                 className="span-2"
-                label="What do you sell?"
+                label="What do you sell or offer?"
                 value={values.sells}
                 error={errors.sells}
                 onChange={(value) => set("sells", value)}
