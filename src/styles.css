@@ -1030,8 +1030,10 @@ tr:last-child th, tr:last-child td { border-bottom: 0; }
   position: fixed;
   left: 12px;
   right: 12px;
-  bottom: 12px;
+  bottom: max(12px, env(safe-area-inset-bottom));
   z-index: 4;
+  align-items: stretch;
+  justify-content: center;
   padding: 8px;
   border-radius: 16px;
   border: 1px solid var(--line);
@@ -1041,14 +1043,21 @@ tr:last-child th, tr:last-child td { border-bottom: 0; }
 
 .sticky-cta a,
 .sticky-cta button {
-  flex: 1;
+  display: flex;
+  flex: 1 1 0;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
   min-height: 46px;
+  padding: 0 12px;
   border-radius: 12px;
   border: 1px solid var(--line);
   background: transparent;
   color: var(--ink);
+  text-align: center;
   text-decoration: none;
   font-weight: 600;
+  line-height: 1.15;
 }
 
 .sticky-cta button {
@@ -1058,8 +1067,9 @@ tr:last-child th, tr:last-child td { border-bottom: 0; }
 }
 
 .inquiry {
-  width: min(680px, calc(100vw - 28px));
-  max-height: min(88vh, 900px);
+  width: min(680px, calc(100vw - 32px));
+  max-width: calc(100vw - 32px);
+  max-height: min(88dvh, 900px);
   margin: auto;
   padding: 0;
   border: 1px solid rgba(255, 255, 255, 0.12);
@@ -1372,15 +1382,22 @@ tr:last-child th, tr:last-child td { border-bottom: 0; }
   .close-actions .btn { width: 100%; }
   .span-2 { grid-column: auto; }
   .inquiry {
-    width: 100%;
-    height: 100%;
-    max-height: 100%;
-    margin: 0;
-    border-radius: 0;
-    border: 0;
+    width: calc(100vw - 24px);
+    max-width: calc(100vw - 24px);
+    height: auto;
+    max-height: calc(100dvh - 24px);
+    margin: auto;
+    overflow: hidden;
+    border-radius: 22px;
   }
-  .inquiry-sheet { max-height: 100%; height: 100%; }
-  .inquiry-form { flex: 1; overflow: hidden; }
+  .inquiry-sheet {
+    max-height: calc(100dvh - 24px);
+    height: auto;
+    min-height: 0;
+    overflow: hidden;
+    padding: 18px 16px 16px;
+  }
+  .inquiry-form { flex: 1; min-height: 0; overflow: hidden; }
   .inquiry-scroll { max-height: none; flex: 1; overflow: auto; }
   .custom-band, .close-panel { padding: 22px; }
 }
