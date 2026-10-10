@@ -57,8 +57,8 @@ function validate(values: FormValues) {
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(values.email.trim())) {
     errors.email = "Add an email we can reply to.";
   }
-  if (values.phone.trim() && values.phone.replace(/\D/g, "").length < 7) {
-    errors.phone = "Add a full phone number, or leave this blank.";
+  if (values.phone.replace(/\D/g, "").length < 7) {
+    errors.phone = "Add a phone number we can call.";
   }
   if (!values.business.trim()) errors.business = "Add the business name.";
   if (values.website.trim() && !values.website.trim().includes(".")) {
@@ -97,7 +97,7 @@ function inquiryText(payload: InquiryPayload) {
   const totalLines = [
     quote.once > 0 ? `To start: ${money(quote.once)}` : "",
     quote.monthly > 0 ? `Each month: ${money(quote.monthly)}` : "",
-    quote.custom ? "Custom creative: quoted after this inquiry" : "",
+    quote.custom ? `${customOffer.name}: quoted after this inquiry` : "",
     "Payment: invoice. Nothing was charged on the site.",
   ];
   const lines = [
@@ -106,7 +106,7 @@ function inquiryText(payload: InquiryPayload) {
     ...totalLines,
     `Name: ${payload.name}`,
     `Email: ${payload.email}`,
-    payload.phone ? `Phone: ${payload.phone}` : "",
+    `Phone: ${payload.phone}`,
     `Business: ${payload.business}`,
     payload.website ? `Website: ${payload.website}` : "",
     `What they offer: ${payload.sells}`,
@@ -298,7 +298,7 @@ export function InquiryDialog({
       ? "Choose what you want"
       : quote.items.length === 1
         ? custom
-          ? "Inquire about custom creative"
+          ? `Inquire about a ${customOffer.name.toLowerCase()}`
           : `Request ${quote.items[0].name}`
         : `Request ${quote.items.length} options`;
 
@@ -420,7 +420,7 @@ export function InquiryDialog({
               />
               <Field
                 id="inq-phone"
-                label="Phone (optional)"
+                label="Phone"
                 type="tel"
                 value={values.phone}
                 error={errors.phone}
@@ -478,7 +478,7 @@ export function InquiryDialog({
               <label className="field span-2">
                 <span>
                   {custom
-                    ? "What should the creative cover? (optional)"
+                    ? "What should the project cover? (optional)"
                     : "Anything we should know? (optional)"}
                 </span>
                 <textarea
@@ -537,7 +537,7 @@ function QuoteBar({ quote }: { quote: ReturnType<typeof quoteSelection> }) {
       )}
       {quote.custom && (
         <p>
-          <span>Custom creative</span>
+          <span>{customOffer.name}</span>
           <strong>Quoted</strong>
         </p>
       )}

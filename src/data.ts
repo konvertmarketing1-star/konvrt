@@ -1,6 +1,6 @@
 /**
  * The offer menu. Change a price or a line here and the page updates.
- * Custom creative is the one people inquire about. The rest have a price.
+ * A custom project is the one people inquire about. The rest have a price.
  */
 
 export type PackageId =
@@ -158,7 +158,7 @@ export const addons: Offer[] = [
 
 export const customOffer: Offer = {
   id: "custom",
-  name: "Custom creative",
+  name: "Custom project",
   short: "Custom",
   price: null,
   priceNote: "scoped to the work",
@@ -340,12 +340,12 @@ export const steps = [
   {
     n: "01",
     title: "Tell us the business.",
-    body: "What you sell, who the site is for, and which offer you want. A shop, a law firm, an insurance agency, or a local business. For custom creative, the inquiry is the brief.",
+    body: "What you sell, who the site is for, and which offer you want. A shop, a law firm, an insurance agency, or a local business. For a custom project, the inquiry is the brief.",
   },
   {
     n: "02",
     title: "We confirm the price.",
-    body: "Refresh, Rebuild, the AI help desk, care, creative direction, and shoots come back at the price on this page. Custom creative comes back with a scope and a price. Nothing starts until you approve it.",
+    body: "Refresh, Rebuild, the AI help desk, care, creative direction, and shoots come back at the price on this page. A custom project comes back with a scope and a price. Nothing starts until you approve it.",
   },
   {
     n: "03",
@@ -401,14 +401,14 @@ export const fit = {
     "Running ads, or managing an ad budget",
     "Packing, shipping, or doing the job the customer hired you for",
     "Legal advice, or binding an insurance policy",
-    "Custom creative with no outcome, budget, or timing",
+    "A custom project with no outcome, budget, or timing",
   ],
 };
 
 export const faqs = [
   {
     id: "custom",
-    q: "How does custom creative work?",
+    q: "How does a custom project work?",
     a: "Send the inquiry with the outcome, a budget range, and the timing. Within one business day you get a written scope and a price, or a note that creative direction or a half-day shoot already fits. Work starts after you approve the scope.",
   },
   {
@@ -444,7 +444,7 @@ export const faqs = [
   {
     id: "pay",
     q: "How do I pay?",
-    a: "This form does not charge a card. The reply includes an invoice at the published price. Custom creative is invoiced only after you approve the written scope. Rebuild is $3,500, then $99.99 a month for website hosting. The help desk build is $5,000, then $297 a month while those AI employees are on, plus $99.99 a month for website hosting.",
+    a: "This form does not charge a card. The reply includes an invoice at the published price. A custom project is invoiced only after you approve the written scope. Rebuild is $3,500, then $99.99 a month for website hosting. The help desk build is $5,000, then $297 a month while those AI employees are on, plus $99.99 a month for website hosting.",
   },
   {
     id: "own",
@@ -520,7 +520,7 @@ export type SelectionQuote = {
   custom: boolean;
 };
 
-/** Priced options add up. Custom creative stays off the number until it is scoped. */
+/** Priced options add up. A custom project stays off the number until it is scoped. */
 export function quoteSelection(ids: PackageId[]): SelectionQuote {
   const items = offers.filter((offer) => ids.includes(offer.id));
   let once = 0;

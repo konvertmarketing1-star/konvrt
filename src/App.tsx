@@ -366,7 +366,7 @@ export function App() {
           </nav>
           <div className="header-actions">
             <button type="button" className="btn btn-primary" onClick={() => openInquiry("custom")}>
-              Custom creative
+              Custom project
             </button>
             <button
               type="button"
@@ -406,7 +406,7 @@ export function App() {
               Questions
             </a>
             <button type="button" onClick={() => openInquiry("custom")}>
-              Inquire about custom creative
+              Inquire about a custom project
             </button>
           </div>
         )}
@@ -435,7 +435,7 @@ export function App() {
                   See the websites
                 </a>
                 <button type="button" className="btn btn-ghost" onClick={() => openInquiry("custom")}>
-                  Inquire about custom creative
+                  Inquire about a custom project
                 </button>
               </div>
             </div>
@@ -722,7 +722,7 @@ export function App() {
               <h2>We plan it. You post it.</h2>
               <p className="lede">
                 Hooks, captions, a calendar, and shot notes for a product, a practice, or a local
-                business. A half-day shoot if you want the footage. Custom creative if the work
+                business. A half-day shoot if you want the footage. A custom project if the work
                 needs its own scope.
               </p>
             </div>
@@ -760,7 +760,7 @@ export function App() {
               <div>
                 <p className="kicker">
                   <Cursor className="kicker-cursor" />
-                  Custom creative
+                  Custom project
                 </p>
                 <h3>If the creative needs its own shape, describe it.</h3>
                 <p>
@@ -782,7 +782,7 @@ export function App() {
                   ))}
                 </div>
                 <button type="button" className="btn btn-primary" onClick={() => openInquiry("custom")}>
-                  Inquire about custom creative
+                  Inquire about a custom project
                 </button>
               </div>
             </aside>
@@ -904,7 +904,7 @@ export function App() {
               </p>
               <h2>Pick a website, or describe the creative.</h2>
               <p className="lede">
-                The price is the same for a shop, a firm, or a local business. Custom creative is
+                The price is the same for a shop, a firm, or a local business. A custom project is
                 scoped after you tell us the outcome.
               </p>
             </div>
@@ -913,7 +913,7 @@ export function App() {
                 See the websites
               </a>
               <button type="button" className="btn btn-ghost" onClick={() => openInquiry("custom")}>
-                Custom creative
+                Custom project
               </button>
             </div>
           </div>
