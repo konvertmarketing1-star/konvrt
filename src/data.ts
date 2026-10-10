@@ -25,7 +25,7 @@ export type Offer = {
   priceNote: string;
   /** How the price lands on an invoice. */
   cadence: Cadence;
-  /** Monthly amount billed with a one-time build. Front desk only. */
+  /** Monthly amount billed with a one-time build. AI help desk only. */
   monthly?: number;
   summary: string;
   bestFor: string;
@@ -76,23 +76,23 @@ export const websites: Array<Offer & { id: WebsiteId }> = [
   },
   {
     id: "front-desk",
-    name: "Rebuild + AI Front Desk",
-    short: "Front desk",
+    name: "Rebuild + AI Help Desk",
+    short: "Help desk",
     price: 3500,
     priceNote: "plus $297/month",
     cadence: "once",
     monthly: 297,
-    summary: "The new site, plus Grok, which answers and follows up.",
+    summary: "The new site, plus AI employees who answer and follow up.",
     bestFor: "You want questions answered and the next step booked while you are with a client.",
     items: [
       "Everything in Rebuild",
-      "A front desk that runs on Grok",
+      "AI employees on the help desk",
       "Answers shoppers and new leads",
       "Books a consult, an estimate, or a callback",
       "Follows up, then hands you the thread",
-      "$297/month while Grok is on",
+      "$297/month while the help desk is on",
     ],
-    cta: "Request the front desk",
+    cta: "Request the help desk",
   },
 ];
 
@@ -190,7 +190,7 @@ export const comparison: ComparisonRow[] = [
     cells: {
       refresh: "Upgrade of the current site",
       rebuild: "Full new site",
-      "front-desk": "Full new site + front desk",
+      "front-desk": "Full new site + AI help desk",
     },
   },
   {
@@ -226,7 +226,7 @@ export const comparison: ComparisonRow[] = [
     cells: { refresh: "—", rebuild: "—", "front-desk": "Yes" },
   },
   {
-    label: "Runs on Grok",
+    label: "AI employees",
     cells: { refresh: "—", rebuild: "—", "front-desk": "Yes" },
   },
   {
@@ -242,7 +242,7 @@ export const comparison: ComparisonRow[] = [
     cells: {
       refresh: "None",
       rebuild: "None",
-      "front-desk": "$297 for the front desk",
+      "front-desk": "$297 for the help desk",
     },
   },
   {
@@ -258,7 +258,7 @@ export const comparison: ComparisonRow[] = [
 export const deskCapabilities = [
   {
     title: "Talks like a person",
-    body: "Grok answers in plain language. The visitor is not stuck in a menu.",
+    body: "An AI employee answers in plain language. The visitor is not stuck in a menu.",
   },
   {
     title: "Knows your business",
@@ -270,7 +270,7 @@ export const deskCapabilities = [
   },
   {
     title: "Follows up",
-    body: "If they stop halfway, Grok picks the conversation back up.",
+    body: "If they stop halfway, an AI employee picks the conversation back up.",
   },
   {
     title: "Covers the gap",
@@ -278,7 +278,7 @@ export const deskCapabilities = [
   },
   {
     title: "Hands the thread to you",
-    body: "You get the lead. Grok does not give legal advice or bind a policy.",
+    body: "You get the lead. The help desk does not give legal advice or bind a policy.",
   },
 ];
 
@@ -298,7 +298,7 @@ export const steps = [
   {
     n: "02",
     title: "We confirm the price.",
-    body: "Refresh, Rebuild, the front desk, care, creative direction, and shoots come back at the price on this page. Custom creative comes back with a scope and a price. Nothing starts until you approve it.",
+    body: "Refresh, Rebuild, the AI help desk, care, creative direction, and shoots come back at the price on this page. Custom creative comes back with a scope and a price. Nothing starts until you approve it.",
   },
   {
     n: "03",
@@ -340,8 +340,8 @@ export const faqs = [
   },
   {
     id: "desk",
-    q: "What is the AI front desk, and what is the $297?",
-    a: "Rebuild + AI Front Desk is $3,500 for the site, then $297 a month. The front desk runs on Grok. It answers shoppers and new leads in plain language, from the facts you give us. It books a consult, an estimate, or a callback, and follows up. It does not give legal advice or bind an insurance policy. The $297 keeps Grok on. It is not a charge for the site itself.",
+    q: "What is the AI help desk, and what is the $297?",
+    a: "Rebuild + AI Help Desk is $3,500 for the site, then $297 a month. AI employees answer shoppers and new leads in plain language, from the facts you give us. They book a consult, an estimate, or a callback, and follow up. They do not give legal advice or bind an insurance policy. The $297 keeps the help desk on. It is not a charge for the site itself.",
   },
   {
     id: "care",
@@ -361,7 +361,7 @@ export const faqs = [
   {
     id: "pay",
     q: "How do I pay?",
-    a: "This form does not charge a card. The reply includes an invoice at the published price. Custom creative is invoiced only after you approve the written scope. The front desk build is $3,500, then $297 a month while that bot is on.",
+    a: "This form does not charge a card. The reply includes an invoice at the published price. Custom creative is invoiced only after you approve the written scope. The help desk build is $3,500, then $297 a month while those AI employees are on.",
   },
   {
     id: "own",

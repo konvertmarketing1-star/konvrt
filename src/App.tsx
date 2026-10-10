@@ -67,14 +67,14 @@ function useCountUp(target: number, active: boolean) {
 const rail = [
   ["results", "Results"],
   ["offers", "Websites"],
-  ["desk", "Grok"],
+  ["desk", "Help desk"],
   ["creative", "Creative"],
   ["questions", "Questions"],
 ] as const;
 
 function stickyFor(band: string) {
   if (band === "desk") {
-    return { href: "#offers", ghost: "See websites", primary: "Add Grok", packageId: "front-desk" as const };
+    return { href: "#offers", ghost: "See websites", primary: "Add help desk", packageId: "front-desk" as const };
   }
   if (band === "creative") {
     return { href: "#offers", ghost: "See websites", primary: "Add creative", packageId: "creative" as const };
@@ -258,7 +258,7 @@ export function App() {
               Websites
             </a>
             <a href="#desk" aria-current={band === "desk" ? "true" : undefined}>
-              Front desk
+              Help desk
             </a>
             <a href="#creative" aria-current={band === "creative" ? "true" : undefined}>
               Creative
@@ -292,7 +292,7 @@ export function App() {
               Websites
             </a>
             <a href="#desk" aria-current={band === "desk" ? "true" : undefined} onClick={() => setMenuOpen(false)}>
-              Front desk
+              Help desk
             </a>
             <a
               href="#creative"
@@ -330,8 +330,8 @@ export function App() {
               <p className="lede">
                 KONVRT builds the page that gets the next step. Shopify and online brands get a
                 site that sells. Lawyers and insurance agents get more leads. Local businesses get
-                the quote and the call. Refresh the site you have, or rebuild it. The front desk
-                runs on Grok. It answers, books, and follows up.
+                the quote and the call. Refresh the site you have, or rebuild it. AI employees
+                on the help desk answer, book, and follow up.
               </p>
               <div className="hero-actions" ref={heroActions}>
                 <a className="btn btn-primary" href="#offers">
@@ -537,7 +537,7 @@ export function App() {
               <p className="lede">
                 Refresh the site you already have, or start over. Shops get a page that sells.
                 Lawyers and insurance agents get a page that collects leads. Local businesses get
-                the quote and the call. The front desk answers and follows up after that.
+                the quote and the call. AI employees on the help desk answer and follow up after that.
               </p>
             </div>
             <div className="offer-grid">
@@ -599,11 +599,11 @@ export function App() {
         <section className="section desk-stage" id="desk">
           <div className="wrap desk-pin">
             <div>
-              <p className="kicker">AI front desk</p>
-              <h2>Grok answers. You take the job.</h2>
+              <p className="kicker">AI help desk</p>
+              <h2>AI employees answer. You take the job.</h2>
               <p className="lede">
-                Rebuild + AI Front Desk includes Grok. It talks with shoppers and new leads, books
-                the next step, and hands you the thread. Scroll to watch one example.
+                Rebuild + AI Help Desk puts AI employees on the site. They talk with shoppers and
+                new leads, book the next step, and hand you the thread. Scroll to watch one example.
               </p>
               <ul className="desk-caps">
                 {deskCapabilities.map((item, index) => {
@@ -617,12 +617,12 @@ export function App() {
                 })}
               </ul>
               <button type="button" className="btn btn-primary" onClick={() => openInquiry("front-desk")}>
-                Request the front desk
+                Request the help desk
               </button>
             </div>
             <div className="textshot desk-chat">
               <header>
-                <strong>Grok</strong>
+                <strong>AI help desk</strong>
                 <span>Example</span>
               </header>
               {deskMessages.map((message, index) => (
