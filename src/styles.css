@@ -655,6 +655,7 @@ h1, h2, h3 {
   display: flex;
   flex: 1;
   flex-direction: column;
+  gap: 8px;
   overflow: hidden;
   padding: 14px;
   border: 1px solid var(--line);
@@ -691,7 +692,6 @@ h1, h2, h3 {
 }
 
 .bubble.out {
-  margin-top: auto;
   margin-left: auto;
   background: #1a56db;
   color: #fff;
@@ -1088,16 +1088,11 @@ tr:last-child th, tr:last-child td { border-bottom: 0; }
   margin-bottom: 12px;
 }
 
-.desk-stage { padding-bottom: 28px; }
-
-.desk-pin { display: grid; gap: 22px; align-items: start; }
-
-.desk-pin h2 { margin-bottom: 12px; font-size: clamp(2.2rem, 4vw, 3.4rem); }
-
 .desk-caps {
   display: grid;
-  gap: 8px;
-  margin: 18px 0;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px 16px;
+  margin: 8px 0 22px;
   padding: 0;
   list-style: none;
 }
@@ -1119,27 +1114,139 @@ tr:last-child th, tr:last-child td { border-bottom: 0; }
 
 .desk-caps span { color: var(--muted); font-size: 0.92rem; }
 
-.desk-chat { min-height: 280px; align-content: start; }
+.desk-scroll { min-height: 220vh; margin-top: 28px; }
 
-.desk-chat .bubble:not(.is-shown) { display: none; }
+.desk-phone-pin {
+  position: sticky;
+  top: 96px;
+  width: min(460px, calc(100% - 32px));
+  margin: 0 auto;
+}
+
+.desk-count {
+  margin: 0 0 8px;
+  color: var(--muted);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.desk-count span {
+  display: block;
+  margin-top: 2px;
+  color: var(--faint);
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.desk-chat { min-height: 0; }
+
+.desk-chat-body {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-height: 300px;
+}
+
+.desk-chat .bubble {
+  margin-top: 0;
+  padding: 8px 10px;
+  font-size: 0.88rem;
+}
+
+.desk-chat .who {
+  display: block;
+  margin-bottom: 2px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.desk-chat .bubble.in .who { color: #3d4a66; }
+
+.desk-chat .bubble.out .who { color: rgba(255, 255, 255, 0.82); }
+
+.desk-handoff {
+  margin: 0;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: #e7edfb;
+  color: #172033;
+  font-size: 0.9rem;
+}
+
+.desk-handoff strong {
+  display: block;
+  margin-bottom: 2px;
+  color: #1a3f9c;
+  font-size: 0.68rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
 
 .desk-note {
-  margin: 8px 0 0;
+  margin: 0;
   color: #6b7388;
   font-size: 0.78rem;
 }
 
+.desk-switch {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 6px;
+  margin-top: 10px;
+}
+
+.desk-switch button {
+  min-height: 36px;
+  padding: 6px 2px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: rgba(12, 16, 44, 0.55);
+  color: var(--ink);
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+.desk-switch button[aria-pressed="true"] {
+  background: var(--blue);
+  color: var(--blue-ink);
+  border-color: transparent;
+}
+
+.desk-meter {
+  height: 3px;
+  margin: 0 0 10px;
+  border-radius: 99px;
+  background: rgba(255, 255, 255, 0.12);
+  overflow: hidden;
+}
+
+.desk-meter span {
+  display: block;
+  height: 100%;
+  background: var(--blue);
+  transform: scaleX(0);
+  transform-origin: left center;
+}
+
+.desk-stack {
+  display: grid;
+  gap: 16px;
+  margin-top: 22px;
+}
+
 @media (min-width: 981px) {
-  .desk-stage { min-height: 168vh; }
-  .desk-pin {
-    position: sticky;
-    top: 96px;
-    grid-template-columns: 1.05fr 0.95fr;
-    gap: 32px;
-    align-items: center;
-    min-height: calc(100vh - 130px);
-  }
-  .desk-chat { min-height: 420px; align-content: end; }
+  .desk-stack { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 640px) {
+  .desk-caps { grid-template-columns: 1fr; }
 }
 
 .site-footer {
@@ -1564,6 +1671,13 @@ tr:last-child th, tr:last-child td { border-bottom: 0; }
     opacity: 1;
     transform: scale(1.03);
   }
+
+  .desk-chat { animation: desk-in 0.35s ease; }
+}
+
+@keyframes desk-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {

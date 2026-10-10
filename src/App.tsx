@@ -8,7 +8,7 @@ import {
   customOffer,
   customSeeds,
   deskCapabilities,
-  deskMessages,
+  deskThreads,
   faqs,
   fit,
   guarantee,
@@ -88,6 +88,127 @@ function stickyFor(band: string) {
   return { href: "#offers", ghost: "See websites", primary: "Request Rebuild", packageId: "rebuild" as const };
 }
 
+function DeskChat({ thread }: { thread: (typeof deskThreads)[number] }) {
+  return (
+    <div className="textshot desk-chat">
+      <header>
+        <strong>{thread.who}</strong>
+        <span>Example · {thread.kind}</span>
+      </header>
+      <div className="desk-chat-body">
+        {thread.messages.map((message) => (
+          <div key={message.text} className={`bubble ${message.from}`}>
+            <span className="who">{message.from === "in" ? "Visitor" : "AI help desk"}</span>
+            {message.text}
+          </div>
+        ))}
+      </div>
+      <p className="desk-handoff">
+        <strong>Handed to you</strong>
+        {thread.handoff}
+      </p>
+      <p className="desk-note">Example only. Not a client.</p>
+    </div>
+  );
+}
+
+function DeskExamples({ onRequest }: { onRequest: () => void }) {
+  const stageRef = useRef<HTMLDivElement>(null);
+  const still = prefersStill();
+  const [view, setView] = useState({ index: 0, amount: still ? 1 : 0 });
+
+  useEffect(() => {
+    if (still) return;
+    const stage = stageRef.current;
+    if (!stage) return;
+    const update = () => {
+      const pin = stage.querySelector<HTMLElement>(".desk-phone-pin");
+      const rect = stage.getBoundingClientRect();
+      const stickyTop = 96;
+      const travel = Math.max(stage.offsetHeight - (pin?.offsetHeight ?? 0), 1);
+      const amount = Math.min(1, Math.max(0, (stickyTop - rect.top) / travel));
+      const last = deskThreads.length - 1;
+      const index = amount >= 0.999 ? last : Math.min(last, Math.floor(amount * deskThreads.length));
+      const rounded = Math.round(amount * 200) / 200;
+      setView((prev) => (prev.index === index && prev.amount === rounded ? prev : { index, amount: rounded }));
+    };
+    update();
+    window.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update);
+    return () => {
+      window.removeEventListener("scroll", update);
+      window.removeEventListener("resize", update);
+    };
+  }, [still]);
+
+  const goTo = (index: number) => {
+    const stage = stageRef.current;
+    if (!stage) return;
+    const pin = stage.querySelector<HTMLElement>(".desk-phone-pin");
+    const stickyTop = 96;
+    const travel = Math.max(stage.offsetHeight - (pin?.offsetHeight ?? 0), 1);
+    const amount = index / (deskThreads.length - 1);
+    const top = stage.getBoundingClientRect().top + window.scrollY;
+    window.scrollTo({ top: top - stickyTop + amount * travel, behavior: "smooth" });
+  };
+
+  const thread = deskThreads[view.index] ?? deskThreads[0];
+
+  return (
+    <section className="section" id="desk">
+      <div className="wrap">
+        <div className="section-head">
+          <p className="kicker">AI help desk</p>
+          <h2>AI employees answer. You take the job.</h2>
+          <p className="lede">
+            Rebuild + AI Help Desk puts AI employees on the site. Scroll the examples. A shop gets
+            sent to checkout, a lawyer gets a consult, an insurance agent gets a callback, and a
+            local business gets the visit. Then the thread is handed to you.
+          </p>
+        </div>
+        <ul className="desk-caps">
+          {deskCapabilities.map((item) => (
+            <li key={item.title}>
+              <strong>{item.title}</strong>
+              <span>{item.body}</span>
+            </li>
+          ))}
+        </ul>
+        <button type="button" className="btn btn-primary" onClick={onRequest}>
+          Request the help desk
+        </button>
+      </div>
+      {still ? (
+        <div className="wrap desk-stack">
+          {deskThreads.map((item) => (
+            <DeskChat key={item.id} thread={item} />
+          ))}
+        </div>
+      ) : (
+        <div className="desk-scroll" ref={stageRef}>
+          <div className="desk-phone-pin">
+            <p className="desk-count">
+              Example {view.index + 1} of {deskThreads.length}
+              <span>{view.index === deskThreads.length - 1 ? "That is the handoff." : "Scroll for the next example."}</span>
+            </p>
+            <div className="desk-meter" aria-hidden="true">
+              <span style={{ transform: `scaleX(${view.amount})` }} />
+            </div>
+            <DeskChat key={thread.id} thread={thread} />
+            <div className="desk-switch" role="group" aria-label="Help desk examples">
+              {deskThreads.map((item, index) => (
+                <button key={item.id} type="button" aria-pressed={index === view.index} onClick={() => goTo(index)}>
+                  {item.kind}
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+    </section>
+  );
+}
+
 export function App() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -96,7 +217,6 @@ export function App() {
   const [band, setBand] = useState("hero");
   const [countResults, setCountResults] = useState(false);
   const millions = useCountUp(10, countResults);
-  const [deskStep, setDeskStep] = useState(() => (prefersStill() ? deskMessages.length - 1 : 0));
   const heroActions = useRef<HTMLDivElement>(null);
   const heroArt = useRef<HTMLDivElement>(null);
   const sticky = stickyFor(band);
@@ -137,15 +257,6 @@ export function App() {
       if (heroArt.current) {
         const y = Math.min(window.scrollY * 0.22, 72);
         heroArt.current.style.transform = `translate3d(0, ${y}px, 0)`;
-      }
-      const desk = document.getElementById("desk");
-      if (desk) {
-        const rect = desk.getBoundingClientRect();
-        const passed = window.innerHeight * 0.72 - rect.top;
-        const span = Math.max(rect.height - window.innerHeight * 0.45, 1);
-        const amount = Math.min(1, Math.max(0, passed / span));
-        const last = deskMessages.length - 1;
-        setDeskStep(amount >= 0.98 ? last : Math.min(last, Math.floor(amount * deskMessages.length)));
       }
       const cards = [...document.querySelectorAll<HTMLElement>("#offers .offer, #creative .offer")];
       const mid = window.innerHeight * 0.46;
@@ -499,7 +610,7 @@ export function App() {
                     <div className="bubble in">
                       Rear-ended yesterday. Can I talk with someone this week?
                     </div>
-                    <div className="bubble out">Thursday at 10. I sent the consult form.</div>
+                    <div className="bubble out">Thursday at 10:00 works. The office will call you then. This is not legal advice.</div>
                   </div>
                   <figcaption>
                     <span>Example</span>
@@ -517,7 +628,7 @@ export function App() {
                       Ceiling is dripping. Can someone come this week?
                       <img src="/examples/leak.jpg" alt="" />
                     </div>
-                    <div className="bubble out">Thursday morning works. I sent the quote.</div>
+                    <div className="bubble out">Thursday morning is open. Send the address and we will book the visit.</div>
                   </div>
                   <figcaption>
                     <span>Example</span>
@@ -596,44 +707,7 @@ export function App() {
           </div>
         </section>
 
-        <section className="section desk-stage" id="desk">
-          <div className="wrap desk-pin">
-            <div>
-              <p className="kicker">AI help desk</p>
-              <h2>AI employees answer. You take the job.</h2>
-              <p className="lede">
-                Rebuild + AI Help Desk puts AI employees on the site. They talk with shoppers and
-                new leads, book the next step, and hand you the thread. Scroll to watch one example.
-              </p>
-              <ul className="desk-caps">
-                {deskCapabilities.map((item, index) => {
-                  const capOn = Math.round((deskStep / (deskMessages.length - 1)) * (deskCapabilities.length - 1));
-                  return (
-                    <li key={item.title} className={index <= capOn ? "is-on" : undefined}>
-                      <strong>{item.title}</strong>
-                      <span>{item.body}</span>
-                    </li>
-                  );
-                })}
-              </ul>
-              <button type="button" className="btn btn-primary" onClick={() => openInquiry("front-desk")}>
-                Request the help desk
-              </button>
-            </div>
-            <div className="textshot desk-chat">
-              <header>
-                <strong>AI help desk</strong>
-                <span>Example</span>
-              </header>
-              {deskMessages.map((message, index) => (
-                <div key={message.text} className={index <= deskStep ? `bubble ${message.from} is-shown` : `bubble ${message.from}`}>
-                  {message.text}
-                </div>
-              ))}
-              <p className="desk-note">Example only. Not a client.</p>
-            </div>
-          </div>
-        </section>
+        <DeskExamples onRequest={() => openInquiry("front-desk")} />
 
         <section className="section" id="creative">
           <div className="wrap">

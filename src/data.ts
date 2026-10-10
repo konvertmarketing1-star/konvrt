@@ -282,11 +282,55 @@ export const deskCapabilities = [
   },
 ];
 
-export const deskMessages = [
-  { from: "in", text: "The ceiling is dripping. Can someone come this week?" },
-  { from: "out", text: "Yes. Same-week repair is open. What is leaking, and what number should we call?" },
-  { from: "in", text: "Living room ceiling. (555) 014-0188." },
-  { from: "out", text: "Thursday morning works. I sent the quote, and I will remind them tonight." },
+export const deskThreads = [
+  {
+    id: "shop",
+    who: "Marlow",
+    kind: "Shop",
+    handoff: "Shopper sent to checkout. Cedar hand oil, two bottles, $28 each.",
+    messages: [
+      { from: "in" as const, text: "Is the cedar hand oil in stock? I need two bottles by Friday." },
+      { from: "out" as const, text: "Yes. It is $28 and in stock. Orders placed today ship tomorrow." },
+      { from: "in" as const, text: "I will take two. Where do I check out?" },
+      { from: "out" as const, text: "Checkout is open on the product page. You will get a confirmation when the order is placed." },
+    ],
+  },
+  {
+    id: "law",
+    who: "Ames Law",
+    kind: "Lawyer",
+    handoff: "Consult booked. Thursday at 10:00. Call (555) 014-2200.",
+    messages: [
+      { from: "in" as const, text: "I was rear-ended yesterday. Can I book a consult this week?" },
+      { from: "out" as const, text: "Thursday at 10:00 is open. What number should the office call?" },
+      { from: "in" as const, text: "(555) 014-2200." },
+      { from: "out" as const, text: "Booked. Thursday at 10:00. The office will call that number. This chat is not legal advice." },
+    ],
+  },
+  {
+    id: "insurance",
+    who: "Pell Insurance",
+    kind: "Insurance",
+    handoff: "Callback requested for today. Home policy, closing Friday. (555) 019-4410.",
+    messages: [
+      { from: "in" as const, text: "We close on Friday. Can an agent call me about a home policy?" },
+      { from: "out" as const, text: "Yes. An agent can call today. What number should they use?" },
+      { from: "in" as const, text: "(555) 019-4410." },
+      { from: "out" as const, text: "Requested. An agent will call that number today. A policy is not bound in this chat." },
+    ],
+  },
+  {
+    id: "local",
+    who: "Northline Roofing",
+    kind: "Local",
+    handoff: "Visit booked. Thursday at 9:00. 14 Oak Street, living room ceiling.",
+    messages: [
+      { from: "in" as const, text: "The living room ceiling is dripping. Can someone come this week?" },
+      { from: "out" as const, text: "Yes. Thursday at 9:00 is open. What is the address?" },
+      { from: "in" as const, text: "14 Oak Street." },
+      { from: "out" as const, text: "Booked. Thursday at 9:00 at 14 Oak Street. You will get a reminder the evening before." },
+    ],
+  },
 ];
 
 export const steps = [
