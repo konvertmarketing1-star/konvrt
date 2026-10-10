@@ -39,7 +39,7 @@ export const websites: Array<Offer & { id: WebsiteId }> = [
     id: "refresh",
     name: "Refresh",
     short: "Refresh",
-    price: 1500,
+    price: 2500,
     priceNote: "one time",
     cadence: "once",
     summary: "A new design and clearer copy on the site you already have.",
@@ -228,7 +228,7 @@ export const comparison: ComparisonRow[] = [
   {
     label: "Build price",
     cells: {
-      refresh: "$1,500 once",
+      refresh: "$2,500 once",
       rebuild: "$3,000 once",
       "front-desk": "$3,500 once",
     },
@@ -293,7 +293,7 @@ export const faqs = [
   {
     id: "sites",
     q: "What is the difference between Refresh and Rebuild?",
-    a: "Refresh is $1,500. It upgrades the site you have with a new design, clearer copy, and a next step: buy, book, or call. Rebuild is $3,000. It is a full new site, up to 6 pages, for a shop, a law firm, an insurance agency, or a local business.",
+    a: "Refresh is $2,500. It upgrades the site you have with a new design, clearer copy, and a next step: buy, book, or call. Rebuild is $3,000. It is a full new site, up to 6 pages, for a shop, a law firm, an insurance agency, or a local business.",
   },
   {
     id: "who",
