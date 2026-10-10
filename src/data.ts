@@ -58,7 +58,7 @@ export const websites: Array<Offer & { id: WebsiteId }> = [
     id: "rebuild",
     name: "Rebuild",
     short: "Rebuild",
-    price: 3000,
+    price: 3500,
     priceNote: "one time",
     cadence: "once",
     summary: "A full new site, built to convert.",
@@ -78,7 +78,7 @@ export const websites: Array<Offer & { id: WebsiteId }> = [
     id: "front-desk",
     name: "Rebuild + AI Help Desk",
     short: "Help desk",
-    price: 3500,
+    price: 5000,
     priceNote: "plus $297/month",
     cadence: "once",
     monthly: 297,
@@ -233,8 +233,8 @@ export const comparison: ComparisonRow[] = [
     label: "Build price",
     cells: {
       refresh: "$2,500 once",
-      rebuild: "$3,000 once",
-      "front-desk": "$3,500 once",
+      rebuild: "$3,500 once",
+      "front-desk": "$5,000 once",
     },
   },
   {
@@ -375,7 +375,7 @@ export const faqs = [
   {
     id: "sites",
     q: "What is the difference between Refresh and Rebuild?",
-    a: "Refresh is $2,500. It upgrades the site you have with a new design, clearer copy, and a next step: buy, book, or call. Rebuild is $3,000. It is a full new site, up to 6 pages, for a shop, a law firm, an insurance agency, or a local business.",
+    a: "Refresh is $2,500. It upgrades the site you have with a new design, clearer copy, and a next step: buy, book, or call. Rebuild is $3,500. It is a full new site, up to 6 pages, for a shop, a law firm, an insurance agency, or a local business.",
   },
   {
     id: "who",
@@ -385,7 +385,7 @@ export const faqs = [
   {
     id: "desk",
     q: "What is the AI help desk, and what is the $297?",
-    a: "Rebuild + AI Help Desk is $3,500 for the site, then $297 a month. AI employees answer shoppers and new leads in plain language, from the facts you give us. They book a consult, an estimate, or a callback, and follow up. They do not give legal advice or bind an insurance policy. The $297 keeps the help desk on. It is not a charge for the site itself.",
+    a: "Rebuild + AI Help Desk is $5,000 for the site, then $297 a month. AI employees answer shoppers and new leads in plain language, from the facts you give us. They book a consult, an estimate, or a callback, and follow up. They do not give legal advice or bind an insurance policy. The $297 keeps the help desk on. It is not a charge for the site itself.",
   },
   {
     id: "care",
@@ -405,7 +405,7 @@ export const faqs = [
   {
     id: "pay",
     q: "How do I pay?",
-    a: "This form does not charge a card. The reply includes an invoice at the published price. Custom creative is invoiced only after you approve the written scope. The help desk build is $3,500, then $297 a month while those AI employees are on.",
+    a: "This form does not charge a card. The reply includes an invoice at the published price. Custom creative is invoiced only after you approve the written scope. The help desk build is $5,000, then $297 a month while those AI employees are on.",
   },
   {
     id: "own",

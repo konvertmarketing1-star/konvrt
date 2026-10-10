@@ -1661,17 +1661,6 @@ tr:last-child th, tr:last-child td { border-bottom: 0; }
     transition-delay: var(--d, 0ms);
   }
 
-  #offers .offer-grid.is-live .offer {
-    opacity: 0.48;
-    transform: scale(0.985);
-    transition: opacity 0.35s ease, transform 0.35s ease;
-  }
-
-  #offers .offer-grid.is-live .offer.is-focus {
-    opacity: 1;
-    transform: scale(1.03);
-  }
-
   .desk-chat { animation: desk-in 0.35s ease; }
 }
 

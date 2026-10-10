@@ -258,21 +258,6 @@ export function App() {
         const y = Math.min(window.scrollY * 0.22, 72);
         heroArt.current.style.transform = `translate3d(0, ${y}px, 0)`;
       }
-      const cards = [...document.querySelectorAll<HTMLElement>("#offers .offer, #creative .offer")];
-      const mid = window.innerHeight * 0.46;
-      let best: HTMLElement | null = null;
-      let bestDist = Number.POSITIVE_INFINITY;
-      for (const card of cards) {
-        const rect = card.getBoundingClientRect();
-        if (rect.bottom < 80 || rect.top > window.innerHeight - 40) continue;
-        const dist = Math.abs(rect.top + rect.height / 2 - mid);
-        if (dist < bestDist) {
-          bestDist = dist;
-          best = card;
-        }
-      }
-      for (const card of cards) card.classList.toggle("is-focus", card === best);
-      document.querySelector("#offers .offer-grid")?.classList.toggle("is-live", cards.some((card) => card.classList.contains("is-focus") && card.closest("#offers")));
     };
     place();
     window.addEventListener("scroll", place, { passive: true });
@@ -656,7 +641,7 @@ export function App() {
                 <article
                   key={offer.id}
                   id={`offer-${offer.id}`}
-                  className={offer.core ? "offer is-core reveal" : "offer reveal"}
+                  className="offer is-core reveal"
                   style={{ "--d": `${index * 80}ms` } as CSSProperties}
                 >
                   {offer.core && <p className="badge">Full site</p>}
@@ -677,7 +662,7 @@ export function App() {
                   </ul>
                   <button
                     type="button"
-                    className={offer.core ? "btn btn-primary" : "btn btn-ghost"}
+                    className="btn btn-primary"
                     onClick={() => openInquiry(offer.id)}
                   >
                     {offer.cta}
