@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState, type CSSProperties } from "react";
 import { InquiryDialog } from "./InquiryDialog";
 import { Cursor } from "./icons";
 import { inquiryEmail } from "./config";
@@ -20,11 +20,70 @@ import {
 const care = addons.find((offer) => offer.id === "care")!;
 const creativeOffers = addons.filter((offer) => offer.id !== "care");
 
+const scrollBands = [
+  "results",
+  "examples",
+  "offers",
+  "creative",
+  "compare",
+  "process",
+  "fit",
+  "questions",
+  "inquire",
+  "founders",
+];
+
+function prefersStill() {
+  return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+}
+
+function useCountUp(target: number, active: boolean) {
+  const [value, setValue] = useState(() => (prefersStill() ? target : 0));
+
+  useEffect(() => {
+    if (!active) return;
+    if (prefersStill()) {
+      setValue(target);
+      return;
+    }
+    const start = performance.now();
+    let frame = 0;
+    const tick = (now: number) => {
+      const t = Math.min(1, (now - start) / 900);
+      const eased = 1 - (1 - t) ** 3;
+      setValue(Math.round(target * eased));
+      if (t < 1) frame = requestAnimationFrame(tick);
+    };
+    frame = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(frame);
+  }, [active, target]);
+
+  return value;
+}
+
+function stickyFor(band: string) {
+  if (band === "creative") {
+    return { href: "#offers", ghost: "See websites", primary: "Add creative", packageId: "creative" as const };
+  }
+  if (band === "questions" || band === "inquire" || band === "founders") {
+    return { href: "#offers", ghost: "See websites", primary: "Start inquiry", packageId: "custom" as const };
+  }
+  if (band === "offers" || band === "compare") {
+    return { href: "#compare", ghost: "Compare", primary: "Request Rebuild", packageId: "rebuild" as const };
+  }
+  return { href: "#offers", ghost: "See websites", primary: "Request Rebuild", packageId: "rebuild" as const };
+}
+
 export function App() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [showSticky, setShowSticky] = useState(false);
+  const [progress, setProgress] = useState(0);
+  const [band, setBand] = useState("hero");
+  const [countResults, setCountResults] = useState(false);
+  const millions = useCountUp(10, countResults);
   const heroActions = useRef<HTMLDivElement>(null);
+  const sticky = stickyFor(band);
   const [inquiry, setInquiry] = useState<{
     open: boolean;
     packageId: PackageId;
@@ -33,10 +92,80 @@ export function App() {
   }>({ open: false, packageId: "custom", note: "", requestKey: 0 });
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 8);
+    const onScroll = () => {
+      setScrolled(window.scrollY > 8);
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      setProgress(max > 0 ? Math.min(1, window.scrollY / max) : 0);
+    };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    window.addEventListener("resize", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
+  }, []);
+
+  useEffect(() => {
+    const nodes = scrollBands
+      .map((id) => document.getElementById(id))
+      .filter((node): node is HTMLElement => Boolean(node));
+    const place = () => {
+      const probe = window.innerHeight * 0.38;
+      const current = nodes.find((node) => {
+        const rect = node.getBoundingClientRect();
+        return rect.top <= probe && rect.bottom > probe;
+      });
+      if (current) setBand(current.id);
+    };
+    place();
+    window.addEventListener("scroll", place, { passive: true });
+    window.addEventListener("resize", place);
+    return () => {
+      window.removeEventListener("scroll", place);
+      window.removeEventListener("resize", place);
+    };
+  }, []);
+
+  useEffect(() => {
+    const results = document.getElementById("results");
+    if (!results) return;
+    const resultsObserver = new IntersectionObserver(
+      ([entry]) => {
+        if (entry?.isIntersecting) setCountResults(true);
+      },
+      { threshold: 0.35 },
+    );
+    resultsObserver.observe(results);
+    return () => resultsObserver.disconnect();
+  }, []);
+
+  useLayoutEffect(() => {
+    if (prefersStill()) return;
+    const nodes = [...document.querySelectorAll<HTMLElement>(".reveal")];
+    const viewHeight = window.innerHeight;
+    for (const node of nodes) {
+      const rect = node.getBoundingClientRect();
+      if (rect.top < viewHeight * 0.92 && rect.bottom > 0) node.classList.add("is-in");
+    }
+    document.documentElement.classList.add("has-reveal");
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (!entry.isIntersecting) continue;
+          entry.target.classList.add("is-in");
+          observer.unobserve(entry.target);
+        }
+      },
+      { threshold: 0.18, rootMargin: "0px 0px -8% 0px" },
+    );
+    for (const node of nodes) {
+      if (!node.classList.contains("is-in")) observer.observe(node);
+    }
+    return () => {
+      document.documentElement.classList.remove("has-reveal");
+      observer.disconnect();
+    };
   }, []);
 
   useEffect(() => {
@@ -74,14 +203,21 @@ export function App() {
         Skip to offers
       </a>
       <header className={scrolled ? "site-header is-stuck" : "site-header"}>
+        <div className="scroll-progress" aria-hidden="true" style={{ transform: `scaleX(${progress})` }} />
         <div className="wrap header-bar">
           <a className="brand" href="#top">
             <img src="/wordmark.png" width={1034} height={181} alt="KONVRT" />
           </a>
           <nav className="nav-links" aria-label="Primary">
-            <a href="#offers">Websites</a>
-            <a href="#creative">Creative</a>
-            <a href="#questions">Questions</a>
+            <a href="#offers" aria-current={band === "offers" || band === "compare" ? "true" : undefined}>
+              Websites
+            </a>
+            <a href="#creative" aria-current={band === "creative" ? "true" : undefined}>
+              Creative
+            </a>
+            <a href="#questions" aria-current={band === "questions" ? "true" : undefined}>
+              Questions
+            </a>
           </nav>
           <div className="header-actions">
             <button type="button" className="btn btn-primary" onClick={() => openInquiry("custom")}>
@@ -100,13 +236,25 @@ export function App() {
         </div>
         {menuOpen && (
           <div id="mobile-nav" className="mobile-panel">
-            <a href="#offers" onClick={() => setMenuOpen(false)}>
+            <a
+              href="#offers"
+              aria-current={band === "offers" || band === "compare" ? "true" : undefined}
+              onClick={() => setMenuOpen(false)}
+            >
               Websites
             </a>
-            <a href="#creative" onClick={() => setMenuOpen(false)}>
+            <a
+              href="#creative"
+              aria-current={band === "creative" ? "true" : undefined}
+              onClick={() => setMenuOpen(false)}
+            >
               Creative
             </a>
-            <a href="#questions" onClick={() => setMenuOpen(false)}>
+            <a
+              href="#questions"
+              aria-current={band === "questions" ? "true" : undefined}
+              onClick={() => setMenuOpen(false)}
+            >
               Questions
             </a>
             <button type="button" onClick={() => openInquiry("custom")}>
@@ -174,7 +322,10 @@ export function App() {
           <div className="wrap">
             <div className="result-panel">
               <p className="kicker">Results</p>
-              <p className="result-figure">$10 million</p>
+              <p className="result-figure">
+                <span className="sr-only">$10 million</span>
+                <span aria-hidden="true">${millions} million</span>
+              </p>
               <h2>Generated for our clients.</h2>
               <p className="lede">
                 Work we contributed to has generated $10 million for our clients.
@@ -339,11 +490,12 @@ export function App() {
               </p>
             </div>
             <div className="offer-grid">
-              {websites.map((offer) => (
+              {websites.map((offer, index) => (
                 <article
                   key={offer.id}
                   id={`offer-${offer.id}`}
-                  className={offer.core ? "offer is-core" : "offer"}
+                  className={offer.core ? "offer is-core reveal" : "offer reveal"}
+                  style={{ "--d": `${index * 80}ms` } as CSSProperties}
                 >
                   {offer.core && <p className="badge">Full site</p>}
                   <h3>{offer.name}</h3>
@@ -405,8 +557,13 @@ export function App() {
               </p>
             </div>
             <div className="offer-grid two">
-              {creativeOffers.map((offer) => (
-                <article key={offer.id} id={`offer-${offer.id}`} className="offer">
+              {creativeOffers.map((offer, index) => (
+                <article
+                  key={offer.id}
+                  id={`offer-${offer.id}`}
+                  className="offer reveal"
+                  style={{ "--d": `${index * 80}ms` } as CSSProperties}
+                >
                   <h3>{offer.name}</h3>
                   <p className="price">
                     <strong>{priceHeadline(offer)}</strong>
@@ -509,8 +666,8 @@ export function App() {
               <h2>From inquiry to a site you can run.</h2>
             </div>
             <ol className="steps">
-              {steps.map((step) => (
-                <li key={step.n}>
+              {steps.map((step, index) => (
+                <li key={step.n} className="reveal" style={{ "--d": `${index * 80}ms` } as CSSProperties}>
                   <span>{step.n}</span>
                   <h3>{step.title}</h3>
                   <p>{step.body}</p>
@@ -527,7 +684,7 @@ export function App() {
               <h2>Who this is for.</h2>
             </div>
             <div className="fit-grid">
-              <article>
+              <article className="reveal">
                 <h3>A good fit</h3>
                 <ul>
                   {fit.forYou.map((item) => (
@@ -535,7 +692,7 @@ export function App() {
                   ))}
                 </ul>
               </article>
-              <article>
+              <article className="reveal" style={{ "--d": "80ms" } as CSSProperties}>
                 <h3>Outside this work</h3>
                 <ul>
                   {fit.outside.map((item) => (
@@ -595,12 +752,12 @@ export function App() {
               <h2>Emmerson and Seven.</h2>
             </div>
             <div className="founder-grid">
-              <article>
+              <article className="reveal">
                 <img src="/founders/emmerson.jpg" width={1570} height={884} alt="Emmerson, co-founder and CMO" />
                 <h3>Emmerson</h3>
                 <p>Co-founder + CMO</p>
               </article>
-              <article>
+              <article className="reveal" style={{ "--d": "80ms" } as CSSProperties}>
                 <img src="/founders/seven.jpg" width={1570} height={882} alt="Seven, co-founder and CEO" />
                 <h3>Seven</h3>
                 <p>Co-founder + CEO</p>
@@ -621,9 +778,9 @@ export function App() {
       </footer>
 
       <div className={showSticky ? "sticky-cta is-on" : "sticky-cta"}>
-        <a href="#offers">See websites</a>
-        <button type="button" onClick={() => openInquiry("custom")}>
-          Custom creative
+        <a href={sticky.href}>{sticky.ghost}</a>
+        <button type="button" onClick={() => openInquiry(sticky.packageId)}>
+          {sticky.primary}
         </button>
       </div>
 
