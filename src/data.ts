@@ -351,6 +351,39 @@ export const steps = [
   },
 ];
 
+export type ClientResult = {
+  id: string;
+  name: string;
+  label: string;
+  amount: string;
+  detail: string;
+  logo?: string;
+  logoAlt?: string;
+  href?: string;
+  hrefLabel?: string;
+};
+
+export const clientResults: ClientResult[] = [
+  {
+    id: "wilsons",
+    name: "Wilson's Pizza & Grill",
+    label: "Current customer",
+    amount: "Over $150,000",
+    detail: "We helped them make over $150,000 in sales from the online website.",
+    logo: "/clients/wilsons.png",
+    logoAlt: "Wilson's Pizza & Grill",
+    href: "https://wilsonspizzaandgrill.net",
+    hrefLabel: "wilsonspizzaandgrill.net",
+  },
+  {
+    id: "private",
+    name: "Name withheld",
+    label: "Client",
+    amount: "Over $1.5 million",
+    detail: "We helped them generate over $1.5 million in online sales.",
+  },
+];
+
 export const fit = {
   forYou: [
     "A Shopify or online brand that needs more sales",

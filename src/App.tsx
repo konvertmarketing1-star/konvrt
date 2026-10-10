@@ -4,6 +4,7 @@ import { Cursor } from "./icons";
 import { inquiryEmail } from "./config";
 import {
   addons,
+  clientResults,
   comparison,
   customOffer,
   customSeeds,
@@ -477,6 +478,26 @@ export function App() {
               <p className="lede">
                 Work we contributed to has generated $10 million for our clients.
               </p>
+              <div className="client-grid">
+                {clientResults.map((client) => (
+                  <article key={client.id} className="client-card">
+                    {client.logo ? (
+                      <img src={client.logo} alt={client.logoAlt} />
+                    ) : (
+                      <p className="client-private">Private</p>
+                    )}
+                    <p className="kicker">{client.label}</p>
+                    <h3>{client.name}</h3>
+                    <p className="client-amount">{client.amount}</p>
+                    <p className="detail">{client.detail}</p>
+                    {client.href ? (
+                      <a href={client.href} target="_blank" rel="noopener noreferrer">
+                        {client.hrefLabel}
+                      </a>
+                    ) : null}
+                  </article>
+                ))}
+              </div>
             </div>
           </div>
         </section>
