@@ -7,6 +7,8 @@ import {
   comparison,
   customOffer,
   customSeeds,
+  deskCapabilities,
+  deskMessages,
   faqs,
   fit,
   guarantee,
@@ -24,6 +26,7 @@ const scrollBands = [
   "results",
   "examples",
   "offers",
+  "desk",
   "creative",
   "compare",
   "process",
@@ -61,7 +64,18 @@ function useCountUp(target: number, active: boolean) {
   return value;
 }
 
+const rail = [
+  ["results", "Results"],
+  ["offers", "Websites"],
+  ["desk", "Grok"],
+  ["creative", "Creative"],
+  ["questions", "Questions"],
+] as const;
+
 function stickyFor(band: string) {
+  if (band === "desk") {
+    return { href: "#offers", ghost: "See websites", primary: "Add Grok", packageId: "front-desk" as const };
+  }
   if (band === "creative") {
     return { href: "#offers", ghost: "See websites", primary: "Add creative", packageId: "creative" as const };
   }
@@ -82,7 +96,9 @@ export function App() {
   const [band, setBand] = useState("hero");
   const [countResults, setCountResults] = useState(false);
   const millions = useCountUp(10, countResults);
+  const [deskStep, setDeskStep] = useState(() => (prefersStill() ? deskMessages.length - 1 : 0));
   const heroActions = useRef<HTMLDivElement>(null);
+  const heroArt = useRef<HTMLDivElement>(null);
   const sticky = stickyFor(band);
   const [inquiry, setInquiry] = useState<{
     open: boolean;
@@ -117,6 +133,35 @@ export function App() {
         return rect.top <= probe && rect.bottom > probe;
       });
       if (current) setBand(current.id);
+      if (prefersStill()) return;
+      if (heroArt.current) {
+        const y = Math.min(window.scrollY * 0.22, 72);
+        heroArt.current.style.transform = `translate3d(0, ${y}px, 0)`;
+      }
+      const desk = document.getElementById("desk");
+      if (desk) {
+        const rect = desk.getBoundingClientRect();
+        const passed = window.innerHeight * 0.72 - rect.top;
+        const span = Math.max(rect.height - window.innerHeight * 0.45, 1);
+        const amount = Math.min(1, Math.max(0, passed / span));
+        const last = deskMessages.length - 1;
+        setDeskStep(amount >= 0.98 ? last : Math.min(last, Math.floor(amount * deskMessages.length)));
+      }
+      const cards = [...document.querySelectorAll<HTMLElement>("#offers .offer, #creative .offer")];
+      const mid = window.innerHeight * 0.46;
+      let best: HTMLElement | null = null;
+      let bestDist = Number.POSITIVE_INFINITY;
+      for (const card of cards) {
+        const rect = card.getBoundingClientRect();
+        if (rect.bottom < 80 || rect.top > window.innerHeight - 40) continue;
+        const dist = Math.abs(rect.top + rect.height / 2 - mid);
+        if (dist < bestDist) {
+          bestDist = dist;
+          best = card;
+        }
+      }
+      for (const card of cards) card.classList.toggle("is-focus", card === best);
+      document.querySelector("#offers .offer-grid")?.classList.toggle("is-live", cards.some((card) => card.classList.contains("is-focus") && card.closest("#offers")));
     };
     place();
     window.addEventListener("scroll", place, { passive: true });
@@ -212,6 +257,9 @@ export function App() {
             <a href="#offers" aria-current={band === "offers" || band === "compare" ? "true" : undefined}>
               Websites
             </a>
+            <a href="#desk" aria-current={band === "desk" ? "true" : undefined}>
+              Front desk
+            </a>
             <a href="#creative" aria-current={band === "creative" ? "true" : undefined}>
               Creative
             </a>
@@ -242,6 +290,9 @@ export function App() {
               onClick={() => setMenuOpen(false)}
             >
               Websites
+            </a>
+            <a href="#desk" aria-current={band === "desk" ? "true" : undefined} onClick={() => setMenuOpen(false)}>
+              Front desk
             </a>
             <a
               href="#creative"
@@ -279,8 +330,8 @@ export function App() {
               <p className="lede">
                 KONVRT builds the page that gets the next step. Shopify and online brands get a
                 site that sells. Lawyers and insurance agents get more leads. Local businesses get
-                the quote and the call. Refresh the site you have, or rebuild it. An AI front desk
-                answers, books, and follows up.
+                the quote and the call. Refresh the site you have, or rebuild it. The front desk
+                runs on Grok. It answers, books, and follows up.
               </p>
               <div className="hero-actions" ref={heroActions}>
                 <a className="btn btn-primary" href="#offers">
@@ -291,7 +342,7 @@ export function App() {
                 </button>
               </div>
             </div>
-            <div className="hero-art">
+            <div className="hero-art" ref={heroArt}>
               <img src="/mark.png" width={599} height={651} alt="" />
             </div>
           </div>
@@ -545,6 +596,45 @@ export function App() {
           </div>
         </section>
 
+        <section className="section desk-stage" id="desk">
+          <div className="wrap desk-pin">
+            <div>
+              <p className="kicker">AI front desk</p>
+              <h2>Grok answers. You take the job.</h2>
+              <p className="lede">
+                Rebuild + AI Front Desk includes Grok. It talks with shoppers and new leads, books
+                the next step, and hands you the thread. Scroll to watch one example.
+              </p>
+              <ul className="desk-caps">
+                {deskCapabilities.map((item, index) => {
+                  const capOn = Math.round((deskStep / (deskMessages.length - 1)) * (deskCapabilities.length - 1));
+                  return (
+                    <li key={item.title} className={index <= capOn ? "is-on" : undefined}>
+                      <strong>{item.title}</strong>
+                      <span>{item.body}</span>
+                    </li>
+                  );
+                })}
+              </ul>
+              <button type="button" className="btn btn-primary" onClick={() => openInquiry("front-desk")}>
+                Request the front desk
+              </button>
+            </div>
+            <div className="textshot desk-chat">
+              <header>
+                <strong>Grok</strong>
+                <span>Example</span>
+              </header>
+              {deskMessages.map((message, index) => (
+                <div key={message.text} className={index <= deskStep ? `bubble ${message.from} is-shown` : `bubble ${message.from}`}>
+                  {message.text}
+                </div>
+              ))}
+              <p className="desk-note">Example only. Not a client.</p>
+            </div>
+          </div>
+        </section>
+
         <section className="section" id="creative">
           <div className="wrap">
             <div className="section-head">
@@ -776,6 +866,14 @@ export function App() {
           <a href={`mailto:${inquiryEmail}`}>{inquiryEmail}</a>
         </div>
       </footer>
+
+      <nav className="section-rail" aria-label="On this page">
+        {rail.map(([id, label]) => (
+          <a key={id} href={`#${id}`} aria-current={band === id || (id === "offers" && (band === "compare" || band === "process")) ? "true" : undefined}>
+            <span>{label}</span>
+          </a>
+        ))}
+      </nav>
 
       <div className={showSticky ? "sticky-cta is-on" : "sticky-cta"}>
         <a href={sticky.href}>{sticky.ghost}</a>

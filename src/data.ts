@@ -82,15 +82,15 @@ export const websites: Array<Offer & { id: WebsiteId }> = [
     priceNote: "plus $297/month",
     cadence: "once",
     monthly: 297,
-    summary: "The new site, plus a bot that answers and follows up.",
+    summary: "The new site, plus Grok, which answers and follows up.",
     bestFor: "You want questions answered and the next step booked while you are with a client.",
     items: [
       "Everything in Rebuild",
-      "A bot that answers shoppers and new leads",
+      "A front desk that runs on Grok",
+      "Answers shoppers and new leads",
       "Books a consult, an estimate, or a callback",
-      "Follows up",
-      "$297/month for the front desk",
-      "The site build is paid once",
+      "Follows up, then hands you the thread",
+      "$297/month while Grok is on",
     ],
     cta: "Request the front desk",
   },
@@ -226,6 +226,10 @@ export const comparison: ComparisonRow[] = [
     cells: { refresh: "—", rebuild: "—", "front-desk": "Yes" },
   },
   {
+    label: "Runs on Grok",
+    cells: { refresh: "—", rebuild: "—", "front-desk": "Yes" },
+  },
+  {
     label: "Build price",
     cells: {
       refresh: "$2,500 once",
@@ -249,6 +253,40 @@ export const comparison: ComparisonRow[] = [
       "front-desk": "Optional, $150/month",
     },
   },
+];
+
+export const deskCapabilities = [
+  {
+    title: "Talks like a person",
+    body: "Grok answers in plain language. The visitor is not stuck in a menu.",
+  },
+  {
+    title: "Knows your business",
+    body: "Your offer, prices, hours, and service area. It uses only what you give us.",
+  },
+  {
+    title: "Books the next step",
+    body: "A consult, an estimate, or a callback. A shop gets pointed to the buy path.",
+  },
+  {
+    title: "Follows up",
+    body: "If they stop halfway, Grok picks the conversation back up.",
+  },
+  {
+    title: "Covers the gap",
+    body: "It keeps answering while you are with a client, including after you close.",
+  },
+  {
+    title: "Hands the thread to you",
+    body: "You get the lead. Grok does not give legal advice or bind a policy.",
+  },
+];
+
+export const deskMessages = [
+  { from: "in", text: "The ceiling is dripping. Can someone come this week?" },
+  { from: "out", text: "Yes. Same-week repair is open. What is leaking, and what number should we call?" },
+  { from: "in", text: "Living room ceiling. (555) 014-0188." },
+  { from: "out", text: "Thursday morning works. I sent the quote, and I will remind them tonight." },
 ];
 
 export const steps = [
@@ -303,7 +341,7 @@ export const faqs = [
   {
     id: "desk",
     q: "What is the AI front desk, and what is the $297?",
-    a: "Rebuild + AI Front Desk is $3,500 for the site, then $297 a month. The bot answers shoppers and new leads, books a consult, an estimate, or a callback, and follows up. It does not give legal advice or bind an insurance policy. The $297 is for that front desk, not for the site itself.",
+    a: "Rebuild + AI Front Desk is $3,500 for the site, then $297 a month. The front desk runs on Grok. It answers shoppers and new leads in plain language, from the facts you give us. It books a consult, an estimate, or a callback, and follows up. It does not give legal advice or bind an insurance policy. The $297 keeps Grok on. It is not a charge for the site itself.",
   },
   {
     id: "care",
