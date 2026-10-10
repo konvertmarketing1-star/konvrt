@@ -170,6 +170,19 @@ export function App() {
           </div>
         </section>
 
+        <section className="section result-section" id="results">
+          <div className="wrap">
+            <div className="result-panel">
+              <p className="kicker">Results</p>
+              <p className="result-figure">$10 million</p>
+              <h2>Generated for our clients.</h2>
+              <p className="lede">
+                Work we contributed to has generated $10 million for our clients.
+              </p>
+            </div>
+          </div>
+        </section>
+
         <section className="section" id="examples">
           <div className="wrap">
             <div className="section-head">
