@@ -356,13 +356,16 @@ export const fit = {
     "A Shopify or online brand that needs more sales",
     "A lawyer or insurance agent who needs more leads",
     "A local business that needs quotes and calls",
+    "You want AI employees added, to answer, book, and hand you the thread",
     "You want the site built once, then you own it",
     "You want a content plan, and you will post it yourself",
   ],
   outside: [
-    "Daily posting done for you, inside your social accounts",
-    "Ads, fulfillment, or the client work itself",
-    "Custom creative with nothing to describe",
+    "Posting for you, or logging into your social accounts",
+    "Running ads, or managing an ad budget",
+    "Packing, shipping, or doing the job the customer hired you for",
+    "Legal advice, or binding an insurance policy",
+    "Custom creative with no outcome, budget, or timing",
   ],
 };
 

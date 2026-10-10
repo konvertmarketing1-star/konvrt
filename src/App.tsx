@@ -831,6 +831,10 @@ export function App() {
             <div className="section-head">
               <p className="kicker">Fit</p>
               <h2>Who this is for.</h2>
+              <p className="lede">
+                A shop, a law firm, an insurance agency, or a local business. Add AI employees when
+                you want the site to answer, book, and hand you the thread.
+              </p>
             </div>
             <div className="fit-grid">
               <article className="reveal">
