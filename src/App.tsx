@@ -797,11 +797,11 @@ export function App() {
           <div className="wrap">
             <div className="section-head">
               <p className="kicker">Side by side</p>
-              <h2>Compare the websites.</h2>
+              <h2>Compare the plans.</h2>
             </div>
             <div className="table-wrap">
               <table>
-                <caption className="sr-only">Website comparison</caption>
+                <caption className="sr-only">Plan comparison</caption>
                 <thead>
                   <tr>
                     <th scope="col">Included</th>
@@ -817,7 +817,7 @@ export function App() {
                     <tr key={row.label}>
                       <th scope="row">{row.label}</th>
                       {websites.map((offer) => (
-                        <td key={offer.id} className={offer.core ? "is-core" : undefined}>
+                        <td key={offer.id} data-plan={offer.short} className={offer.core ? "is-core" : undefined}>
                           {row.cells[offer.id]}
                         </td>
                       ))}
