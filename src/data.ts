@@ -368,15 +368,11 @@ export type ClientResult = {
 
 export const clientResults: ClientResult[] = [
   {
-    id: "wilsons",
-    name: "Wilson's Pizza & Grill",
-    label: "Current customer",
+    id: "shopify",
+    name: "A Shopify brand",
+    label: "Client",
     amount: "Over $150,000",
-    detail: "We helped them make over $150,000 in sales from the online website.",
-    logo: "/clients/wilsons.png",
-    logoAlt: "Wilson's Pizza & Grill",
-    href: "https://wilsonspizzaandgrill.net",
-    hrefLabel: "wilsonspizzaandgrill.net",
+    detail: "We helped a Shopify brand make over $150,000.",
   },
   {
     id: "private",
