@@ -25,7 +25,7 @@ export type Offer = {
   priceNote: string;
   /** How the price lands on an invoice. */
   cadence: Cadence;
-  /** Monthly amount billed with a one-time build. Hosting, plus the help desk on that offer. */
+  /** Monthly amount billed with a one-time build, such as the help desk. */
   monthly?: number;
   summary: string;
   bestFor: string;
@@ -59,9 +59,8 @@ export const websites: Array<Offer & { id: WebsiteId }> = [
     name: "Rebuild",
     short: "Rebuild",
     price: 3500,
-    priceNote: "plus $99.99/month hosting",
+    priceNote: "one time",
     cadence: "once",
-    monthly: 99.99,
     summary: "A full new site, built to convert.",
     bestFor: "A shop that should sell more, or a firm that should bring in more leads.",
     items: [
@@ -70,7 +69,6 @@ export const websites: Array<Offer & { id: WebsiteId }> = [
       "A way to buy, book a consult, or request a quote",
       "Click-to-call when a call is the next step",
       "Mobile and desktop",
-      "Website hosting, $99.99/month",
       "Built once. You own it.",
     ],
     cta: "Request Rebuild",
@@ -81,9 +79,9 @@ export const websites: Array<Offer & { id: WebsiteId }> = [
     name: "Rebuild + AI Help Desk",
     short: "Help desk",
     price: 5000,
-    priceNote: "plus $297/month and $99.99/month hosting",
+    priceNote: "plus $297/month",
     cadence: "once",
-    monthly: 396.99,
+    monthly: 297,
     summary: "The new site, plus AI employees who answer and follow up.",
     bestFor: "You want questions answered and the next step booked while you are with a client.",
     items: [
@@ -93,7 +91,6 @@ export const websites: Array<Offer & { id: WebsiteId }> = [
       "Books a consult, an estimate, or a callback",
       "Follows up, then hands you the thread",
       "$297/month while the help desk is on",
-      "Website hosting, $99.99/month",
     ],
     cta: "Request the help desk",
   },
@@ -244,8 +241,8 @@ export const comparison: ComparisonRow[] = [
     label: "Monthly fee",
     cells: {
       refresh: "None",
-      rebuild: "$99.99/month hosting",
-      "front-desk": "$297/month help desk, plus $99.99/month hosting",
+      rebuild: "None",
+      "front-desk": "$297/month help desk",
     },
   },
   {
@@ -410,7 +407,7 @@ export const faqs = [
   {
     id: "sites",
     q: "What is the difference between Refresh and Rebuild?",
-    a: "Refresh is $2,500. It upgrades the site you have with a new design, clearer copy, and a next step: buy, book, or call. Rebuild is $3,500, then $99.99 a month for website hosting. It is a full new site, up to 6 pages, for a shop, a law firm, an insurance agency, or a local business.",
+    a: "Refresh is $2,500. It upgrades the site you have with a new design, clearer copy, and a next step: buy, book, or call. Rebuild is $3,500. It is a full new site, up to 6 pages, for a shop, a law firm, an insurance agency, or a local business.",
   },
   {
     id: "who",
@@ -420,12 +417,12 @@ export const faqs = [
   {
     id: "desk",
     q: "What is the AI help desk, and what is the $297?",
-    a: "Rebuild + AI Help Desk is $5,000 for the site, then $297 a month for the help desk and $99.99 a month for website hosting. AI employees answer shoppers and new leads in plain language, from the facts you give us. They book a consult, an estimate, or a callback, and follow up. They do not give legal advice or bind an insurance policy. The $297 keeps the help desk on. It is not a charge for the site itself.",
+    a: "Rebuild + AI Help Desk is $5,000 for the site, then $297 a month for the help desk. AI employees answer shoppers and new leads in plain language, from the facts you give us. They book a consult, an estimate, or a callback, and follow up. They do not give legal advice or bind an insurance policy. The $297 keeps the help desk on. It is not a charge for the site itself.",
   },
   {
     id: "care",
     q: "Do I have to take the care plan?",
-    a: "No. It is $150 a month for updates, fixes, and hosting help after launch. The site is yours without it. Website hosting is separate: $99.99 a month on Rebuild and on Rebuild + AI Help Desk.",
+    a: "No. It is $150 a month for updates, fixes, and hosting help after launch. The site is yours without it.",
   },
   {
     id: "post",
@@ -440,7 +437,7 @@ export const faqs = [
   {
     id: "pay",
     q: "How do I pay?",
-    a: "This form does not charge a card. The reply includes an invoice at the published price. A custom project is invoiced only after you approve the written scope. Rebuild is $3,500, then $99.99 a month for website hosting. The help desk build is $5,000, then $297 a month while those AI employees are on, plus $99.99 a month for website hosting.",
+    a: "This form does not charge a card. The reply includes an invoice at the published price. A custom project is invoiced only after you approve the written scope. Rebuild is $3,500. The help desk build is $5,000, then $297 a month while those AI employees are on.",
   },
   {
     id: "own",
