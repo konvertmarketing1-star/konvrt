@@ -923,12 +923,12 @@ export function App() {
           <div className="wrap">
             <div className="section-head">
               <p className="kicker">Founders</p>
-              <h2>Emmerson and Seven.</h2>
+              <h2>Emerson and Seven.</h2>
             </div>
             <div className="founder-grid">
               <article className="reveal">
-                <img src="/founders/emmerson.jpg" width={1570} height={884} alt="Emmerson, co-founder and CMO" />
-                <h3>Emmerson</h3>
+                <img src="/founders/emmerson.jpg" width={1570} height={884} alt="Emerson, co-founder and CMO" />
+                <h3>Emerson</h3>
                 <p>Co-founder + CMO</p>
               </article>
               <article className="reveal" style={{ "--d": "80ms" } as CSSProperties}>
